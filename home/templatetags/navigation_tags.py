@@ -16,32 +16,6 @@ def has_menu_children(page):
     return page.get_children().live().in_menu().exists()
 
 
-def has_children(page):
-    # Generically allow index pages to list their children
-    return page.get_children().live().exists()
-
-
-def is_active(page, current_page):
-    # To give us active state on main navigation
-    return (current_page.url_path.startswith(page.url_path) if current_page else False)
-
-
-# Retrieves the top menu items - the immediate children of the parent page
-@register.inclusion_tag('tags/top_menu.html', takes_context=True)
-def top_menu(context, parent, calling_page=None):
-    menuitems = parent.get_children().live().in_menu()
-    for menuitem in menuitems:
-        menuitem.show_dropdown = has_menu_children(menuitem)
-        menuitem.active = (calling_page.url_path.startswith(menuitem.url_path)
-                           if calling_page else False)
-    return {
-        'calling_page': calling_page,
-        'menuitems': menuitems,
-        # required by the pageurl tag that we want to use within this template
-        'request': context['request'],
-    }
-
-
 # Retrieves the children of the top menu items for the drop downs
 @register.inclusion_tag('tags/top_menu_children.html', takes_context=True)
 def top_menu_children(context, parent, calling_page=None):
