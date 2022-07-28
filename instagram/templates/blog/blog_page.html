@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load wagtailimages_tags wagtailcore_tags%}
+{% block content %}
+
+
+
+{%image self.image width-100 as blog_img %}
+
+<div class="container">
+    <div>{{self.creator}}</div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            <div class="thumbnail">
+                <img src="{{ blog_img.url }}" alt="Lights" style="width: 50%" />
+             </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+        
+            {% if page.authors %}
+            <div class="row">
+                {% for author, comment in page.authors %}
+           
+                    <div class="col-2">{% image author.image fill-50x50-c100 class="blog__avatar" %}</div>
+                    <div class="col-5">{{ author.first_name }}  {{ author.last_name}}:</div>
+                    <div class="col-5">{{ comment | richtext }}</div> 
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="col-6">
+            {% if page.get_tags %}
+                <p class="blog__tag-introduction">Find more blog posts with similar tags</p>
+                <div class="blog-tags blog-tags--condensed">
+                    <span class="u-sr-only">Filter blog posts by tag</span>
+                    {% for tag in page.get_tags %}
+                    <a href="{{ tag.url }}" class="blog-tags__pill">{{ tag }}</a>
+                    {% endfor %}
+                </div>
+        {% endif %}
+        </div>
+
+    </div>
+
+</div>
+
+    
+
+  </div>
+</div>
+
+{% endblock content %}

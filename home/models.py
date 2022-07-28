@@ -43,6 +43,11 @@ class People(index.Indexed, ClusterableModel):
         FieldPanel('image')
     ]
 
+    search_fields = [
+        index.SearchField('first_name'),
+        index.SearchField('last_name'),
+    ]
+
 
     def __str__(self):
         return '{} {}'.format(self.first_name, self.last_name)

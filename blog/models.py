@@ -9,6 +9,7 @@ from wagtail.models import Orderable
 from modelcluster.fields import ParentalKey
 from taggit.models import Tag, TaggedItemBase
 from modelcluster.contrib.taggit import ClusterTaggableManager
+from wagtail.fields import RichTextField
 
 
 
@@ -28,6 +29,27 @@ class BlogLikers(Orderable, models.Model):
     )
     panels = [
         FieldPanel('people')
+    ]
+
+class BlogComment(Orderable, models.Model):
+    """
+    This defines the relationship between the `People` within the `base`
+    app and the BlogPage below. This allows People to be added to a BlogPage.
+    """
+
+    page = ParentalKey(
+        'BlogPage', related_name='blog_commenters_relationship', on_delete=models.CASCADE
+    )
+    people = models.ForeignKey(
+        'home.People', related_name='commenters_blog_relationship', on_delete=models.CASCADE
+    )
+
+    comment = RichTextField()
+
+    panels = [
+        FieldPanel('people'),
+        FieldPanel('comment')
+
     ]
 
 
@@ -57,15 +79,69 @@ class BlogPage(Page):
 
     tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
 
+    creator = models.ForeignKey(
+            "home.People",
+            null=False,
+            blank=False,
+            on_delete=models.CASCADE,
+            related_name='+',
+            help_text='The photo creator.'    
+            )
+
 
 
     content_panels = Page.content_panels + [
         FieldPanel('image'),
+        FieldPanel('creator'),
         InlinePanel(
-            'blog_likers_relationship', label="Author(s)",
-            panels=None, min_num=1),
+            'blog_likers_relationship', label="Liker(s)",
+            panels=None),
+        InlinePanel(
+            'blog_commenters_relationship', label="Commenter(s)",
+            panels=None),
         FieldPanel('tags')
     ]
+
+    def likes(self):
+        return len(
+            [
+                n.people for n in self.blog_likers_relationship.all()
+            ]
+        )
+
+
+    def authors(self):
+        """
+        Returns the BlogPage's related People. Again note that we are using
+        the ParentalKey's related_name from the BlogPeopleRelationship model
+        to access these objects. This allows us to access the People objects
+        with a loop on the template. If we tried to access the blog_person_
+        relationship directly we'd print `blog.BlogPeopleRelationship.None`
+        """
+        authors_comments = [
+            (n.people, n.comment) for n in self.blog_commenters_relationship.all()
+        ]
+
+        for author_comment in authors_comments:
+            print(author_comment)
+
+        return authors_comments
+
+    @property
+    def get_tags(self):
+        """
+        Similar to the authors function above we're returning all the tags that
+        are related to the blog post into a list we can access on the template.
+        We're additionally adding a URL to access BlogPage objects with that tag
+        """
+        tags = self.tags.all()
+        for tag in tags:
+            tag.url = '/' + '/'.join(s.strip('/') for s in [
+                self.get_parent().url,
+                'tags',
+                tag.slug
+            ])
+        return tags
 
 
     
