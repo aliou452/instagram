@@ -11,6 +11,9 @@ from taggit.models import Tag, TaggedItemBase
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from wagtail.fields import RichTextField
 
+from django.shortcuts import redirect, render
+from django.contrib import messages
+from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 
 
 
@@ -141,6 +144,75 @@ class BlogPage(Page):
                 'tags',
                 tag.slug
             ])
+        return tags
+
+    parent_page_types = ['BlogIndexPage']
+
+
+
+class BlogIndexPage(RoutablePageMixin, Page):
+    """
+    Index page for blogs.
+    We need to alter the page model's context to return the child page objects,
+    the BlogPage objects, so that it works as an index page.
+    """
+   
+    introduction = models.TextField(
+        help_text='Text to describe the page',
+        blank=True)
+
+    content_panels = Page.content_panels + [
+        FieldPanel('introduction', classname="full"),
+    ]
+
+    subpage_types = ['BlogPage']
+
+
+    def children(self):
+        return self.get_children().specific().live()
+
+
+    def get_context(self, request):
+        context = super(BlogIndexPage, self).get_context(request)
+        context['posts'] = BlogPage.objects.descendant_of(
+            self).live()
+        return context
+
+
+    @route(r'^tags/$', name='tag_archive')
+    @route(r'^tags/([\w-]+)/$', name='tag_archive')
+    def tag_archive(self, request, tag=None):
+
+        try:
+            tag = Tag.objects.get(slug=tag)
+        except Tag.DoesNotExist:
+            if tag:
+                msg = 'There are no blog posts tagged with "{}"'.format(tag)
+                messages.add_message(request, messages.INFO, msg)
+            return redirect(self.url)
+
+        posts = self.get_posts(tag=tag)
+        context = {
+            'tag': tag,
+            'posts': posts
+        }
+        return render(request, 'blog/blog_index_page.html', context)
+
+    def serve_preview(self, request, mode_name):
+        return self.serve(request)
+
+
+    def get_posts(self, tag=None):
+        posts = BlogPage.objects.live().descendant_of(self)
+        if tag:
+            posts = posts.filter(tags=tag)
+        return posts
+
+    def get_child_tags(self):
+        tags = []
+        for post in self.get_posts():
+            tags += post.get_tags
+        tags = sorted(set(tags))
         return tags
 
 
