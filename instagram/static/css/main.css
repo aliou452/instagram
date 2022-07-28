@@ -249,3 +249,18 @@ figure img {
   padding-left: 0;
 }
 
+.navbar-form {
+  margin-left: 30%;
+  
+}
+
+.search-input {
+  width: 50%;
+}
+
+.nav-form {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+
