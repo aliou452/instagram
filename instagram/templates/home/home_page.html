@@ -2,7 +2,14 @@
 {% load wagtailimages_tags wagtailcore_tags %}
 
 {% block content %}
-<div class="homepage">
-    Home page
+<div class="container">
+    <div class="row">
+        {% for childpage in page.feed.specific.children %}
+        {{ childpage.image.url}}
+        <div class="col-2">
+            {% include "includes/card/blog_card.html" with post=childpage %}
+        </div>
+        {% endfor %}
+    </div>
 </div>
 {% endblock content %}

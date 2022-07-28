@@ -58,5 +58,22 @@ class People(index.Indexed, ClusterableModel):
 
 
 class HomePage(Page):
-    pass
+    
+    feed = models.ForeignKey(
+        'wagtailcore.Page',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        help_text='Feed Page to displays',
+        verbose_name='Feed Page'
+    )
+
+
+    content_panels = Page.content_panels + [
+        FieldPanel('feed')
+    ]
+
+    def __str__(self):
+        return self.title
 
