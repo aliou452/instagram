@@ -1,0 +1,1900 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="Sqlite" id="Project-18dc" database="Sqlite" >
+	<schema name="Default" >
+		<table name="auth_group" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<column name="name" type="VARCHAR" length="150" jt="12" mandatory="y" />
+			<index name="pk_auth_group" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="unq_auth_group_name" unique="UNIQUE_KEY" >
+				<column name="name" />
+			</index>
+		</table>
+		<table name="auth_group_permissions" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<column name="group_id" type="INTEGER" jt="4" mandatory="y" />
+			<column name="permission_id" type="INTEGER" jt="4" mandatory="y" />
+			<index name="pk_auth_group_permissions" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="auth_group_permissions_group_id_permission_id_0cd325b0_uniq" unique="UNIQUE_INDEX" >
+				<column name="group_id" />
+				<column name="permission_id" />
+			</index>
+			<index name="auth_group_permissions_group_id_b120cbf9" unique="NORMAL" >
+				<column name="group_id" />
+			</index>
+			<index name="auth_group_permissions_permission_id_84c5c92e" unique="NORMAL" >
+				<column name="permission_id" />
+			</index>
+			<fk name="Fk" to_schema="Default" to_table="auth_group" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="group_id" pk="id" />
+			</fk>
+			<fk name="Fk" to_schema="Default" to_table="auth_permission" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="permission_id" pk="id" />
+			</fk>
+		</table>
+		<table name="auth_permission" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<column name="content_type_id" type="INTEGER" jt="4" mandatory="y" />
+			<column name="codename" type="VARCHAR" length="100" jt="12" mandatory="y" />
+			<column name="name" type="VARCHAR" length="255" jt="12" mandatory="y" />
+			<index name="pk_auth_permission" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="auth_permission_content_type_id_codename_01ab375a_uniq" unique="UNIQUE_INDEX" >
+				<column name="content_type_id" />
+				<column name="codename" />
+			</index>
+			<index name="auth_permission_content_type_id_2f476e4b" unique="NORMAL" >
+				<column name="content_type_id" />
+			</index>
+			<fk name="Fk" to_schema="Default" to_table="django_content_type" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="content_type_id" pk="id" />
+			</fk>
+		</table>
+		<table name="auth_user" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<column name="password" type="VARCHAR" length="128" jt="12" mandatory="y" />
+			<column name="last_login" type="DATETIME" jt="93" />
+			<column name="is_superuser" type="BOOLEAN" jt="-7" mandatory="y" />
+			<column name="username" type="VARCHAR" length="150" jt="12" mandatory="y" />
+			<column name="last_name" type="VARCHAR" length="150" jt="12" mandatory="y" />
+			<column name="email" type="VARCHAR" length="254" jt="12" mandatory="y" />
+			<column name="is_staff" type="BOOLEAN" jt="-7" mandatory="y" />
+			<column name="is_active" type="BOOLEAN" jt="-7" mandatory="y" />
+			<column name="date_joined" type="DATETIME" jt="93" mandatory="y" />
+			<column name="first_name" type="VARCHAR" length="150" jt="12" mandatory="y" />
+			<index name="pk_auth_user" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="unq_auth_user_username" unique="UNIQUE_KEY" >
+				<column name="username" />
+			</index>
+		</table>
+		<table name="auth_user_groups" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<column name="user_id" type="INTEGER" jt="4" mandatory="y" />
+			<column name="group_id" type="INTEGER" jt="4" mandatory="y" />
+			<index name="pk_auth_user_groups" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="auth_user_groups_user_id_group_id_94350c0c_uniq" unique="UNIQUE_INDEX" >
+				<column name="user_id" />
+				<column name="group_id" />
+			</index>
+			<index name="auth_user_groups_user_id_6a12ed8b" unique="NORMAL" >
+				<column name="user_id" />
+			</index>
+			<index name="auth_user_groups_group_id_97559544" unique="NORMAL" >
+				<column name="group_id" />
+			</index>
+			<fk name="Fk" to_schema="Default" to_table="auth_user" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="user_id" pk="id" />
+			</fk>
+			<fk name="Fk" to_schema="Default" to_table="auth_group" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="group_id" pk="id" />
+			</fk>
+		</table>
+		<table name="auth_user_user_permissions" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<column name="user_id" type="INTEGER" jt="4" mandatory="y" />
+			<column name="permission_id" type="INTEGER" jt="4" mandatory="y" />
+			<index name="pk_auth_user_user_permissions" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="auth_user_user_permissions_user_id_permission_id_14a6b632_uniq" unique="UNIQUE_INDEX" >
+				<column name="user_id" />
+				<column name="permission_id" />
+			</index>
+			<index name="auth_user_user_permissions_user_id_a95ead1b" unique="NORMAL" >
+				<column name="user_id" />
+			</index>
+			<index name="auth_user_user_permissions_permission_id_1fbb5f2c" unique="NORMAL" >
+				<column name="permission_id" />
+			</index>
+			<fk name="Fk" to_schema="Default" to_table="auth_user" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="user_id" pk="id" />
+			</fk>
+			<fk name="Fk" to_schema="Default" to_table="auth_permission" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="permission_id" pk="id" />
+			</fk>
+		</table>
+		<table name="blog_albumpage" spec="" >
+			<column name="blogpage_ptr_id" type="INTEGER" jt="4" mandatory="y" />
+			<index name="pk_blog_albumpage" unique="PRIMARY_KEY" >
+				<column name="blogpage_ptr_id" />
+			</index>
+			<fk name="Fk" to_schema="Default" to_table="blog_blogpage" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="blogpage_ptr_id" pk="page_ptr_id" />
+			</fk>
+		</table>
+		<table name="blog_albumphotos" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<column name="sort_order" type="INTEGER" jt="4" />
+			<column name="album_image_id" type="INTEGER" jt="4" />
+			<column name="page_id" type="INTEGER" jt="4" mandatory="y" />
+			<index name="pk_blog_albumphotos" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="blog_albumphotos_album_image_id_714159bc" unique="NORMAL" >
+				<column name="album_image_id" />
+			</index>
+			<index name="blog_albumphotos_page_id_8c034436" unique="NORMAL" >
+				<column name="page_id" />
+			</index>
+			<fk name="Fk" to_schema="Default" to_table="wagtailimages_image" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="album_image_id" pk="id" />
+			</fk>
+			<fk name="Fk" to_schema="Default" to_table="blog_albumpage" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="page_id" pk="blogpage_ptr_id" />
+			</fk>
+		</table>
+		<table name="blog_blogcomment" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<column name="sort_order" type="INTEGER" jt="4" />
+			<column name="comment" type="TEXT" jt="-1" mandatory="y" />
+			<column name="page_id" type="INTEGER" jt="4" mandatory="y" />
+			<column name="people_id" type="INTEGER" jt="4" mandatory="y" />
+			<index name="pk_blog_blogcomment" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="blog_blogcomment_page_id_d43ee61f" unique="NORMAL" >
+				<column name="page_id" />
+			</index>
+			<index name="blog_blogcomment_people_id_340e2477" unique="NORMAL" >
+				<column name="people_id" />
+			</index>
+			<fk name="Fk" to_schema="Default" to_table="blog_blogpage" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="page_id" pk="page_ptr_id" />
+			</fk>
+			<fk name="Fk" to_schema="Default" to_table="home_people" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="people_id" pk="id" />
+			</fk>
+		</table>
+		<table name="blog_blogindexpage" spec="" >
+			<column name="page_ptr_id" type="INTEGER" jt="4" mandatory="y" />
+			<column name="introduction" type="TEXT" jt="-1" mandatory="y" />
+			<index name="pk_blog_blogindexpage" unique="PRIMARY_KEY" >
+				<column name="page_ptr_id" />
+			</index>
+			<fk name="Fk" to_schema="Default" to_table="wagtailcore_page" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="page_ptr_id" pk="id" />
+			</fk>
+		</table>
+		<table name="blog_bloglikers" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<column name="sort_order" type="INTEGER" jt="4" />
+			<column name="page_id" type="INTEGER" jt="4" mandatory="y" />
+			<column name="people_id" type="INTEGER" jt="4" mandatory="y" />
+			<index name="pk_blog_bloglikers" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="blog_bloglikers_page_id_16ff718c" unique="NORMAL" >
+				<column name="page_id" />
+			</index>
+			<index name="blog_bloglikers_people_id_9a825713" unique="NORMAL" >
+				<column name="people_id" />
+			</index>
+			<fk name="Fk" to_schema="Default" to_table="blog_blogpage" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="page_id" pk="page_ptr_id" />
+			</fk>
+			<fk name="Fk" to_schema="Default" to_table="home_people" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="people_id" pk="id" />
+			</fk>
+		</table>
+		<table name="blog_blogpage" spec="" >
+			<column name="page_ptr_id" type="INTEGER" jt="4" mandatory="y" />
+			<column name="image_id" type="INTEGER" jt="4" />
+			<column name="creator_id" type="INTEGER" jt="4" mandatory="y" />
+			<index name="pk_blog_blogpage" unique="PRIMARY_KEY" >
+				<column name="page_ptr_id" />
+			</index>
+			<index name="blog_blogpage_image_id_a60e2e91" unique="NORMAL" >
+				<column name="image_id" />
+			</index>
+			<index name="blog_blogpage_creator_id_b75c6054" unique="NORMAL" >
+				<column name="creator_id" />
+			</index>
+			<fk name="Fk" to_schema="Default" to_table="wagtailcore_page" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="page_ptr_id" pk="id" />
+			</fk>
+			<fk name="Fk" to_schema="Default" to_table="wagtailimages_image" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="image_id" pk="id" />
+			</fk>
+			<fk name="Fk" to_schema="Default" to_table="home_people" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="creator_id" pk="id" />
+			</fk>
+		</table>
+		<table name="blog_blogpagetag" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<column name="content_object_id" type="INTEGER" jt="4" mandatory="y" />
+			<column name="tag_id" type="INTEGER" jt="4" mandatory="y" />
+			<index name="pk_blog_blogpagetag" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="blog_blogpagetag_content_object_id_0dc644d2" unique="NORMAL" >
+				<column name="content_object_id" />
+			</index>
+			<index name="blog_blogpagetag_tag_id_81dc0e5f" unique="NORMAL" >
+				<column name="tag_id" />
+			</index>
+			<fk name="Fk" to_schema="Default" to_table="blog_blogpage" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="content_object_id" pk="page_ptr_id" />
+			</fk>
+			<fk name="Fk" to_schema="Default" to_table="taggit_tag" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="tag_id" pk="id" />
+			</fk>
+		</table>
+		<table name="django_admin_log" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<column name="action_time" type="DATETIME" jt="93" mandatory="y" />
+			<column name="object_id" type="TEXT" jt="-1" />
+			<column name="object_repr" type="VARCHAR" length="200" jt="12" mandatory="y" />
+			<column name="change_message" type="TEXT" jt="-1" mandatory="y" />
+			<column name="content_type_id" type="INTEGER" jt="4" />
+			<column name="user_id" type="INTEGER" jt="4" mandatory="y" />
+			<column name="action_flag" type="SMALLINT" jt="5" mandatory="y" unsigned="y" />
+			<index name="pk_django_admin_log" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="django_admin_log_content_type_id_c4bce8eb" unique="NORMAL" >
+				<column name="content_type_id" />
+			</index>
+			<index name="django_admin_log_user_id_c564eba6" unique="NORMAL" >
+				<column name="user_id" />
+			</index>
+			<constraint name="Cns_django_admin_log_action_flag" >
+				<string><![CDATA["action_flag" >= 0]]></string>
+			</constraint>
+			<fk name="Fk" to_schema="Default" to_table="django_content_type" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="content_type_id" pk="id" />
+			</fk>
+			<fk name="Fk" to_schema="Default" to_table="auth_user" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="user_id" pk="id" />
+			</fk>
+		</table>
+		<table name="django_content_type" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<column name="app_label" type="VARCHAR" length="100" jt="12" mandatory="y" />
+			<column name="model" type="VARCHAR" length="100" jt="12" mandatory="y" />
+			<index name="pk_django_content_type" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="django_content_type_app_label_model_76bd3d3b_uniq" unique="UNIQUE_INDEX" >
+				<column name="app_label" />
+				<column name="model" />
+			</index>
+		</table>
+		<table name="django_migrations" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<column name="app" type="VARCHAR" length="255" jt="12" mandatory="y" />
+			<column name="name" type="VARCHAR" length="255" jt="12" mandatory="y" />
+			<column name="applied" type="DATETIME" jt="93" mandatory="y" />
+			<index name="pk_django_migrations" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+		</table>
+		<table name="django_session" spec="" >
+			<column name="session_key" type="VARCHAR" length="40" jt="12" mandatory="y" />
+			<column name="session_data" type="TEXT" jt="-1" mandatory="y" />
+			<column name="expire_date" type="DATETIME" jt="93" mandatory="y" />
+			<index name="pk_django_session" unique="PRIMARY_KEY" >
+				<column name="session_key" />
+			</index>
+			<index name="django_session_expire_date_a5c62663" unique="NORMAL" >
+				<column name="expire_date" />
+			</index>
+		</table>
+		<table name="home_homepage" spec="" >
+			<column name="page_ptr_id" type="INTEGER" jt="4" mandatory="y" />
+			<column name="feed_id" type="INTEGER" jt="4" />
+			<index name="pk_home_homepage" unique="PRIMARY_KEY" >
+				<column name="page_ptr_id" />
+			</index>
+			<index name="home_homepage_feed_id_79dda3bd" unique="NORMAL" >
+				<column name="feed_id" />
+			</index>
+			<fk name="Fk" to_schema="Default" to_table="wagtailcore_page" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="page_ptr_id" pk="id" />
+			</fk>
+			<fk name="Fk" to_schema="Default" to_table="wagtailcore_page" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="feed_id" pk="id" />
+			</fk>
+		</table>
+		<table name="home_people" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<column name="first_name" type="VARCHAR" length="254" jt="12" mandatory="y" />
+			<column name="last_name" type="VARCHAR" length="254" jt="12" mandatory="y" />
+			<column name="image_id" type="INTEGER" jt="4" />
+			<index name="pk_home_people" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="home_people_image_id_7999b56e" unique="NORMAL" >
+				<column name="image_id" />
+			</index>
+			<fk name="Fk" to_schema="Default" to_table="wagtailimages_image" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="image_id" pk="id" />
+			</fk>
+		</table>
+		<table name="taggit_tag" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<column name="name" type="VARCHAR" length="100" jt="12" mandatory="y" />
+			<column name="slug" type="VARCHAR" length="100" jt="12" mandatory="y" />
+			<index name="pk_taggit_tag" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="unq_taggit_tag_name" unique="UNIQUE_KEY" >
+				<column name="name" />
+			</index>
+			<index name="unq_taggit_tag_slug" unique="UNIQUE_KEY" >
+				<column name="slug" />
+			</index>
+		</table>
+		<table name="taggit_taggeditem" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<column name="object_id" type="INTEGER" jt="4" mandatory="y" />
+			<column name="content_type_id" type="INTEGER" jt="4" mandatory="y" />
+			<column name="tag_id" type="INTEGER" jt="4" mandatory="y" />
+			<index name="pk_taggit_taggeditem" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="taggit_taggeditem_object_id_e2d7d1df" unique="NORMAL" >
+				<column name="object_id" />
+			</index>
+			<index name="taggit_taggeditem_content_type_id_9957a03c" unique="NORMAL" >
+				<column name="content_type_id" />
+			</index>
+			<index name="taggit_taggeditem_tag_id_f4f5b767" unique="NORMAL" >
+				<column name="tag_id" />
+			</index>
+			<index name="taggit_taggeditem_content_type_id_object_id_196cc965_idx" unique="NORMAL" >
+				<column name="content_type_id" />
+				<column name="object_id" />
+			</index>
+			<index name="taggit_taggeditem_content_type_id_object_id_tag_id_4bb97a8e_uniq" unique="UNIQUE_INDEX" >
+				<column name="content_type_id" />
+				<column name="object_id" />
+				<column name="tag_id" />
+			</index>
+			<fk name="Fk" to_schema="Default" to_table="django_content_type" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="content_type_id" pk="id" />
+			</fk>
+			<fk name="Fk" to_schema="Default" to_table="taggit_tag" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="tag_id" pk="id" />
+			</fk>
+		</table>
+		<table name="wagtailadmin_admin" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<index name="pk_wagtailadmin_admin" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+		</table>
+		<table name="wagtailcore_collection" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<column name="path" type="VARCHAR" length="255" jt="12" mandatory="y" />
+			<column name="depth" type="INTEGER" jt="4" mandatory="y" unsigned="y" />
+			<column name="numchild" type="INTEGER" jt="4" mandatory="y" unsigned="y" />
+			<column name="name" type="VARCHAR" length="255" jt="12" mandatory="y" />
+			<index name="pk_wagtailcore_collection" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="unq_wagtailcore_collection_path" unique="UNIQUE_KEY" >
+				<column name="path" />
+			</index>
+			<constraint name="Cns_wagtailcore_collection_depth" >
+				<string><![CDATA["depth" >= 0]]></string>
+			</constraint>
+			<constraint name="Cns_wagtailcore_collection_numchild" >
+				<string><![CDATA["numchild" >= 0]]></string>
+			</constraint>
+		</table>
+		<table name="wagtailcore_collectionviewrestriction" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<column name="restriction_type" type="VARCHAR" length="20" jt="12" mandatory="y" />
+			<column name="password" type="VARCHAR" length="255" jt="12" mandatory="y" />
+			<column name="collection_id" type="INTEGER" jt="4" mandatory="y" />
+			<index name="pk_wagtailcore_collectionviewrestriction" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="wagtailcore_collectionviewrestriction_collection_id_761908ec" unique="NORMAL" >
+				<column name="collection_id" />
+			</index>
+			<fk name="Fk" to_schema="Default" to_table="wagtailcore_collection" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="collection_id" pk="id" />
+			</fk>
+		</table>
+		<table name="wagtailcore_collectionviewrestriction_groups" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<column name="collectionviewrestriction_id" type="INTEGER" jt="4" mandatory="y" />
+			<column name="group_id" type="INTEGER" jt="4" mandatory="y" />
+			<index name="pk_wagtailcore_collectionviewrestriction_groups" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="wagtailcore_collectionviewrestriction_groups_collectionviewrestriction_id_group_id_988995ae_uniq" unique="UNIQUE_INDEX" >
+				<column name="collectionviewrestriction_id" />
+				<column name="group_id" />
+			</index>
+			<index name="wagtailcore_collectionviewrestriction_groups_collectionviewrestriction_id_47320efd" unique="NORMAL" >
+				<column name="collectionviewrestriction_id" />
+			</index>
+			<index name="wagtailcore_collectionviewrestriction_groups_group_id_1823f2a3" unique="NORMAL" >
+				<column name="group_id" />
+			</index>
+			<fk name="Fk" to_schema="Default" to_table="wagtailcore_collectionviewrestriction" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="collectionviewrestriction_id" pk="id" />
+			</fk>
+			<fk name="Fk" to_schema="Default" to_table="auth_group" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="group_id" pk="id" />
+			</fk>
+		</table>
+		<table name="wagtailcore_comment" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<column name="text" type="TEXT" jt="-1" mandatory="y" />
+			<column name="contentpath" type="TEXT" jt="-1" mandatory="y" />
+			<column name="position" type="TEXT" jt="-1" mandatory="y" />
+			<column name="created_at" type="DATETIME" jt="93" mandatory="y" />
+			<column name="updated_at" type="DATETIME" jt="93" mandatory="y" />
+			<column name="resolved_at" type="DATETIME" jt="93" />
+			<column name="page_id" type="INTEGER" jt="4" mandatory="y" />
+			<column name="resolved_by_id" type="INTEGER" jt="4" />
+			<column name="revision_created_id" type="INTEGER" jt="4" />
+			<column name="user_id" type="INTEGER" jt="4" mandatory="y" />
+			<index name="pk_wagtailcore_comment" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="wagtailcore_comment_page_id_108444b5" unique="NORMAL" >
+				<column name="page_id" />
+			</index>
+			<index name="wagtailcore_comment_resolved_by_id_a282aa0e" unique="NORMAL" >
+				<column name="resolved_by_id" />
+			</index>
+			<index name="wagtailcore_comment_revision_created_id_1d058279" unique="NORMAL" >
+				<column name="revision_created_id" />
+			</index>
+			<index name="wagtailcore_comment_user_id_0c577ca6" unique="NORMAL" >
+				<column name="user_id" />
+			</index>
+			<fk name="Fk" to_schema="Default" to_table="wagtailcore_page" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="page_id" pk="id" />
+			</fk>
+			<fk name="Fk" to_schema="Default" to_table="auth_user" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="resolved_by_id" pk="id" />
+			</fk>
+			<fk name="Fk" to_schema="Default" to_table="wagtailcore_pagerevision" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="revision_created_id" pk="id" />
+			</fk>
+			<fk name="Fk" to_schema="Default" to_table="auth_user" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="user_id" pk="id" />
+			</fk>
+		</table>
+		<table name="wagtailcore_commentreply" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<column name="text" type="TEXT" jt="-1" mandatory="y" />
+			<column name="created_at" type="DATETIME" jt="93" mandatory="y" />
+			<column name="updated_at" type="DATETIME" jt="93" mandatory="y" />
+			<column name="comment_id" type="INTEGER" jt="4" mandatory="y" />
+			<column name="user_id" type="INTEGER" jt="4" mandatory="y" />
+			<index name="pk_wagtailcore_commentreply" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="wagtailcore_commentreply_comment_id_afc7e027" unique="NORMAL" >
+				<column name="comment_id" />
+			</index>
+			<index name="wagtailcore_commentreply_user_id_d0b3b9c3" unique="NORMAL" >
+				<column name="user_id" />
+			</index>
+			<fk name="Fk" to_schema="Default" to_table="wagtailcore_comment" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="comment_id" pk="id" />
+			</fk>
+			<fk name="Fk" to_schema="Default" to_table="auth_user" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="user_id" pk="id" />
+			</fk>
+		</table>
+		<table name="wagtailcore_groupapprovaltask" spec="" >
+			<column name="task_ptr_id" type="INTEGER" jt="4" mandatory="y" />
+			<index name="pk_wagtailcore_groupapprovaltask" unique="PRIMARY_KEY" >
+				<column name="task_ptr_id" />
+			</index>
+			<fk name="Fk" to_schema="Default" to_table="wagtailcore_task" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="task_ptr_id" pk="id" />
+			</fk>
+		</table>
+		<table name="wagtailcore_groupapprovaltask_groups" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<column name="groupapprovaltask_id" type="INTEGER" jt="4" mandatory="y" />
+			<column name="group_id" type="INTEGER" jt="4" mandatory="y" />
+			<index name="pk_wagtailcore_groupapprovaltask_groups" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="wagtailcore_groupapprovaltask_groups_groupapprovaltask_id_group_id_bb5ee7eb_uniq" unique="UNIQUE_INDEX" >
+				<column name="groupapprovaltask_id" />
+				<column name="group_id" />
+			</index>
+			<index name="wagtailcore_groupapprovaltask_groups_groupapprovaltask_id_9a9255ea" unique="NORMAL" >
+				<column name="groupapprovaltask_id" />
+			</index>
+			<index name="wagtailcore_groupapprovaltask_groups_group_id_2e64b61f" unique="NORMAL" >
+				<column name="group_id" />
+			</index>
+			<fk name="Fk" to_schema="Default" to_table="wagtailcore_groupapprovaltask" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="groupapprovaltask_id" pk="task_ptr_id" />
+			</fk>
+			<fk name="Fk" to_schema="Default" to_table="auth_group" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="group_id" pk="id" />
+			</fk>
+		</table>
+		<table name="wagtailcore_groupcollectionpermission" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<column name="collection_id" type="INTEGER" jt="4" mandatory="y" />
+			<column name="group_id" type="INTEGER" jt="4" mandatory="y" />
+			<column name="permission_id" type="INTEGER" jt="4" mandatory="y" />
+			<index name="pk_wagtailcore_groupcollectionpermission" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="wagtailcore_groupcollectionpermission_group_id_collection_id_permission_id_a21cefe9_uniq" unique="UNIQUE_INDEX" >
+				<column name="group_id" />
+				<column name="collection_id" />
+				<column name="permission_id" />
+			</index>
+			<index name="wagtailcore_groupcollectionpermission_collection_id_5423575a" unique="NORMAL" >
+				<column name="collection_id" />
+			</index>
+			<index name="wagtailcore_groupcollectionpermission_group_id_05d61460" unique="NORMAL" >
+				<column name="group_id" />
+			</index>
+			<index name="wagtailcore_groupcollectionpermission_permission_id_1b626275" unique="NORMAL" >
+				<column name="permission_id" />
+			</index>
+			<fk name="Fk" to_schema="Default" to_table="wagtailcore_collection" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="collection_id" pk="id" />
+			</fk>
+			<fk name="Fk" to_schema="Default" to_table="auth_group" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="group_id" pk="id" />
+			</fk>
+			<fk name="Fk" to_schema="Default" to_table="auth_permission" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="permission_id" pk="id" />
+			</fk>
+		</table>
+		<table name="wagtailcore_grouppagepermission" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<column name="group_id" type="INTEGER" jt="4" mandatory="y" />
+			<column name="page_id" type="INTEGER" jt="4" mandatory="y" />
+			<column name="permission_type" type="VARCHAR" length="20" jt="12" mandatory="y" />
+			<index name="pk_wagtailcore_grouppagepermission" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="wagtailcore_grouppagepermission_group_id_page_id_permission_type_0898bdf8_uniq" unique="UNIQUE_INDEX" >
+				<column name="group_id" />
+				<column name="page_id" />
+				<column name="permission_type" />
+			</index>
+			<index name="wagtailcore_grouppagepermission_group_id_fc07e671" unique="NORMAL" >
+				<column name="group_id" />
+			</index>
+			<index name="wagtailcore_grouppagepermission_page_id_710b114a" unique="NORMAL" >
+				<column name="page_id" />
+			</index>
+			<fk name="Fk" to_schema="Default" to_table="auth_group" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="group_id" pk="id" />
+			</fk>
+			<fk name="Fk" to_schema="Default" to_table="wagtailcore_page" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="page_id" pk="id" />
+			</fk>
+		</table>
+		<table name="wagtailcore_locale" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<column name="language_code" type="VARCHAR" length="100" jt="12" mandatory="y" />
+			<index name="pk_wagtailcore_locale" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="unq_wagtailcore_locale_language_code" unique="UNIQUE_KEY" >
+				<column name="language_code" />
+			</index>
+		</table>
+		<table name="wagtailcore_modellogentry" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<column name="label" type="TEXT" jt="-1" mandatory="y" />
+			<column name="action" type="VARCHAR" length="255" jt="12" mandatory="y" />
+			<column name="timestamp" type="DATETIME" jt="93" mandatory="y" />
+			<column name="content_changed" type="BOOLEAN" jt="-7" mandatory="y" />
+			<column name="deleted" type="BOOLEAN" jt="-7" mandatory="y" />
+			<column name="object_id" type="VARCHAR" length="255" jt="12" mandatory="y" />
+			<column name="content_type_id" type="INTEGER" jt="4" />
+			<column name="user_id" type="INTEGER" jt="4" />
+			<column name="uuid" type="CHAR" length="32" jt="1" />
+			<column name="data" type="TEXT" jt="-1" mandatory="y" />
+			<index name="pk_wagtailcore_modellogentry" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="wagtailcore_modellogentry_action_d2d856ee" unique="NORMAL" >
+				<column name="action" />
+			</index>
+			<index name="wagtailcore_modellogentry_timestamp_9694521b" unique="NORMAL" >
+				<column name="timestamp" />
+			</index>
+			<index name="wagtailcore_modellogentry_content_changed_8bc39742" unique="NORMAL" >
+				<column name="content_changed" />
+			</index>
+			<index name="wagtailcore_modellogentry_object_id_e0e7d4ef" unique="NORMAL" >
+				<column name="object_id" />
+			</index>
+			<index name="wagtailcore_modellogentry_content_type_id_68849e77" unique="NORMAL" >
+				<column name="content_type_id" />
+			</index>
+			<index name="wagtailcore_modellogentry_user_id_0278d1bf" unique="NORMAL" >
+				<column name="user_id" />
+			</index>
+			<constraint name="Cns_wagtailcore_modellogentry_data" >
+				<string><![CDATA[(JSON_VALID("data") OR "data" IS NULL)]]></string>
+			</constraint>
+			<fk name="Fk" to_schema="Default" to_table="django_content_type" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="content_type_id" pk="id" />
+			</fk>
+		</table>
+		<table name="wagtailcore_page" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<column name="path" type="VARCHAR" length="255" jt="12" mandatory="y" />
+			<column name="depth" type="INTEGER" jt="4" mandatory="y" unsigned="y" />
+			<column name="numchild" type="INTEGER" jt="4" mandatory="y" unsigned="y" />
+			<column name="title" type="VARCHAR" length="255" jt="12" mandatory="y" />
+			<column name="slug" type="VARCHAR" length="255" jt="12" mandatory="y" />
+			<column name="live" type="BOOLEAN" jt="-7" mandatory="y" />
+			<column name="has_unpublished_changes" type="BOOLEAN" jt="-7" mandatory="y" />
+			<column name="url_path" type="TEXT" jt="-1" mandatory="y" />
+			<column name="seo_title" type="VARCHAR" length="255" jt="12" mandatory="y" />
+			<column name="show_in_menus" type="BOOLEAN" jt="-7" mandatory="y" />
+			<column name="search_description" type="TEXT" jt="-1" mandatory="y" />
+			<column name="go_live_at" type="DATETIME" jt="93" />
+			<column name="expire_at" type="DATETIME" jt="93" />
+			<column name="expired" type="BOOLEAN" jt="-7" mandatory="y" />
+			<column name="content_type_id" type="INTEGER" jt="4" mandatory="y" />
+			<column name="owner_id" type="INTEGER" jt="4" />
+			<column name="locked" type="BOOLEAN" jt="-7" mandatory="y" />
+			<column name="latest_revision_created_at" type="DATETIME" jt="93" />
+			<column name="first_published_at" type="DATETIME" jt="93" />
+			<column name="live_revision_id" type="INTEGER" jt="4" />
+			<column name="last_published_at" type="DATETIME" jt="93" />
+			<column name="draft_title" type="VARCHAR" length="255" jt="12" mandatory="y" />
+			<column name="locked_at" type="DATETIME" jt="93" />
+			<column name="locked_by_id" type="INTEGER" jt="4" />
+			<column name="translation_key" type="CHAR" length="32" jt="1" mandatory="y" />
+			<column name="locale_id" type="INTEGER" jt="4" mandatory="y" />
+			<column name="alias_of_id" type="INTEGER" jt="4" />
+			<index name="pk_wagtailcore_page" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="unq_wagtailcore_page_path" unique="UNIQUE_KEY" >
+				<column name="path" />
+			</index>
+			<index name="wagtailcore_page_translation_key_locale_id_9b041bad_uniq" unique="UNIQUE_INDEX" >
+				<column name="translation_key" />
+				<column name="locale_id" />
+			</index>
+			<index name="wagtailcore_page_slug_e7c11b8f" unique="NORMAL" >
+				<column name="slug" />
+			</index>
+			<index name="wagtailcore_page_content_type_id_c28424df" unique="NORMAL" >
+				<column name="content_type_id" />
+			</index>
+			<index name="wagtailcore_page_owner_id_fbf7c332" unique="NORMAL" >
+				<column name="owner_id" />
+			</index>
+			<index name="wagtailcore_page_first_published_at_2b5dd637" unique="NORMAL" >
+				<column name="first_published_at" />
+			</index>
+			<index name="wagtailcore_page_live_revision_id_930bd822" unique="NORMAL" >
+				<column name="live_revision_id" />
+			</index>
+			<index name="wagtailcore_page_locked_by_id_bcb86245" unique="NORMAL" >
+				<column name="locked_by_id" />
+			</index>
+			<index name="wagtailcore_page_locale_id_3c7e30a6" unique="NORMAL" >
+				<column name="locale_id" />
+			</index>
+			<index name="wagtailcore_page_alias_of_id_12945502" unique="NORMAL" >
+				<column name="alias_of_id" />
+			</index>
+			<constraint name="Cns_wagtailcore_page_depth" >
+				<string><![CDATA["depth" >= 0]]></string>
+			</constraint>
+			<constraint name="Cns_wagtailcore_page_numchild" >
+				<string><![CDATA["numchild" >= 0]]></string>
+			</constraint>
+			<fk name="Fk" to_schema="Default" to_table="django_content_type" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="content_type_id" pk="id" />
+			</fk>
+			<fk name="Fk" to_schema="Default" to_table="auth_user" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="owner_id" pk="id" />
+			</fk>
+			<fk name="Fk" to_schema="Default" to_table="wagtailcore_pagerevision" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="live_revision_id" pk="id" />
+			</fk>
+			<fk name="Fk" to_schema="Default" to_table="auth_user" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="locked_by_id" pk="id" />
+			</fk>
+			<fk name="Fk" to_schema="Default" to_table="wagtailcore_locale" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="locale_id" pk="id" />
+			</fk>
+			<fk name="Fk" to_schema="Default" to_table="wagtailcore_page" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="alias_of_id" pk="id" />
+			</fk>
+		</table>
+		<table name="wagtailcore_pagelogentry" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<column name="label" type="TEXT" jt="-1" mandatory="y" />
+			<column name="action" type="VARCHAR" length="255" jt="12" mandatory="y" />
+			<column name="timestamp" type="DATETIME" jt="93" mandatory="y" />
+			<column name="content_changed" type="BOOLEAN" jt="-7" mandatory="y" />
+			<column name="deleted" type="BOOLEAN" jt="-7" mandatory="y" />
+			<column name="content_type_id" type="INTEGER" jt="4" />
+			<column name="page_id" type="INTEGER" jt="4" mandatory="y" />
+			<column name="revision_id" type="INTEGER" jt="4" />
+			<column name="user_id" type="INTEGER" jt="4" />
+			<column name="uuid" type="CHAR" length="32" jt="1" />
+			<column name="data" type="TEXT" jt="-1" mandatory="y" />
+			<index name="pk_wagtailcore_pagelogentry" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="wagtailcore_pagelogentry_action_c2408198" unique="NORMAL" >
+				<column name="action" />
+			</index>
+			<index name="wagtailcore_pagelogentry_timestamp_deb774c4" unique="NORMAL" >
+				<column name="timestamp" />
+			</index>
+			<index name="wagtailcore_pagelogentry_content_changed_99f27ade" unique="NORMAL" >
+				<column name="content_changed" />
+			</index>
+			<index name="wagtailcore_pagelogentry_content_type_id_74e7708a" unique="NORMAL" >
+				<column name="content_type_id" />
+			</index>
+			<index name="wagtailcore_pagelogentry_page_id_8464e327" unique="NORMAL" >
+				<column name="page_id" />
+			</index>
+			<index name="wagtailcore_pagelogentry_revision_id_8043d103" unique="NORMAL" >
+				<column name="revision_id" />
+			</index>
+			<index name="wagtailcore_pagelogentry_user_id_604ccfd8" unique="NORMAL" >
+				<column name="user_id" />
+			</index>
+			<constraint name="Cns_wagtailcore_pagelogentry_data" >
+				<string><![CDATA[(JSON_VALID("data") OR "data" IS NULL)]]></string>
+			</constraint>
+			<fk name="Fk" to_schema="Default" to_table="django_content_type" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="content_type_id" pk="id" />
+			</fk>
+		</table>
+		<table name="wagtailcore_pagerevision" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<column name="submitted_for_moderation" type="BOOLEAN" jt="-7" mandatory="y" />
+			<column name="created_at" type="DATETIME" jt="93" mandatory="y" />
+			<column name="approved_go_live_at" type="DATETIME" jt="93" />
+			<column name="page_id" type="INTEGER" jt="4" mandatory="y" />
+			<column name="user_id" type="INTEGER" jt="4" />
+			<column name="content" type="TEXT" jt="-1" mandatory="y" />
+			<index name="pk_wagtailcore_pagerevision" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="wagtailcore_pagerevision_submitted_for_moderation_c682e44c" unique="NORMAL" >
+				<column name="submitted_for_moderation" />
+			</index>
+			<index name="wagtailcore_pagerevision_created_at_66954e3b" unique="NORMAL" >
+				<column name="created_at" />
+			</index>
+			<index name="wagtailcore_pagerevision_approved_go_live_at_e56afc67" unique="NORMAL" >
+				<column name="approved_go_live_at" />
+			</index>
+			<index name="wagtailcore_pagerevision_page_id_d421cc1d" unique="NORMAL" >
+				<column name="page_id" />
+			</index>
+			<index name="wagtailcore_pagerevision_user_id_2409d2f4" unique="NORMAL" >
+				<column name="user_id" />
+			</index>
+			<constraint name="Cns_wagtailcore_pagerevision_content" >
+				<string><![CDATA[(JSON_VALID("content") OR "content" IS NULL)]]></string>
+			</constraint>
+			<fk name="Fk" to_schema="Default" to_table="wagtailcore_page" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="page_id" pk="id" />
+			</fk>
+			<fk name="Fk" to_schema="Default" to_table="auth_user" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="user_id" pk="id" />
+			</fk>
+		</table>
+		<table name="wagtailcore_pagesubscription" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<column name="comment_notifications" type="BOOLEAN" jt="-7" mandatory="y" />
+			<column name="page_id" type="INTEGER" jt="4" mandatory="y" />
+			<column name="user_id" type="INTEGER" jt="4" mandatory="y" />
+			<index name="pk_wagtailcore_pagesubscription" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="wagtailcore_pagesubscription_page_id_user_id_0cef73ed_uniq" unique="UNIQUE_INDEX" >
+				<column name="page_id" />
+				<column name="user_id" />
+			</index>
+			<index name="wagtailcore_pagesubscription_page_id_a085e7a6" unique="NORMAL" >
+				<column name="page_id" />
+			</index>
+			<index name="wagtailcore_pagesubscription_user_id_89d7def9" unique="NORMAL" >
+				<column name="user_id" />
+			</index>
+			<fk name="Fk" to_schema="Default" to_table="wagtailcore_page" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="page_id" pk="id" />
+			</fk>
+			<fk name="Fk" to_schema="Default" to_table="auth_user" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="user_id" pk="id" />
+			</fk>
+		</table>
+		<table name="wagtailcore_pageviewrestriction" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<column name="password" type="VARCHAR" length="255" jt="12" mandatory="y" />
+			<column name="page_id" type="INTEGER" jt="4" mandatory="y" />
+			<column name="restriction_type" type="VARCHAR" length="20" jt="12" mandatory="y" />
+			<index name="pk_wagtailcore_pageviewrestriction" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="wagtailcore_pageviewrestriction_page_id_15a8bea6" unique="NORMAL" >
+				<column name="page_id" />
+			</index>
+			<fk name="Fk" to_schema="Default" to_table="wagtailcore_page" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="page_id" pk="id" />
+			</fk>
+		</table>
+		<table name="wagtailcore_pageviewrestriction_groups" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<column name="pageviewrestriction_id" type="INTEGER" jt="4" mandatory="y" />
+			<column name="group_id" type="INTEGER" jt="4" mandatory="y" />
+			<index name="pk_wagtailcore_pageviewrestriction_groups" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="wagtailcore_pageviewrestriction_groups_pageviewrestriction_id_group_id_d23f80bb_uniq" unique="UNIQUE_INDEX" >
+				<column name="pageviewrestriction_id" />
+				<column name="group_id" />
+			</index>
+			<index name="wagtailcore_pageviewrestriction_groups_pageviewrestriction_id_f147a99a" unique="NORMAL" >
+				<column name="pageviewrestriction_id" />
+			</index>
+			<index name="wagtailcore_pageviewrestriction_groups_group_id_6460f223" unique="NORMAL" >
+				<column name="group_id" />
+			</index>
+			<fk name="Fk" to_schema="Default" to_table="wagtailcore_pageviewrestriction" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="pageviewrestriction_id" pk="id" />
+			</fk>
+			<fk name="Fk" to_schema="Default" to_table="auth_group" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="group_id" pk="id" />
+			</fk>
+		</table>
+		<table name="wagtailcore_site" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<column name="hostname" type="VARCHAR" length="255" jt="12" mandatory="y" />
+			<column name="port" type="INTEGER" jt="4" mandatory="y" />
+			<column name="is_default_site" type="BOOLEAN" jt="-7" mandatory="y" />
+			<column name="root_page_id" type="INTEGER" jt="4" mandatory="y" />
+			<column name="site_name" type="VARCHAR" length="255" jt="12" mandatory="y" />
+			<index name="pk_wagtailcore_site" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="wagtailcore_site_hostname_port_2c626d70_uniq" unique="UNIQUE_INDEX" >
+				<column name="hostname" />
+				<column name="port" />
+			</index>
+			<index name="wagtailcore_site_hostname_96b20b46" unique="NORMAL" >
+				<column name="hostname" />
+			</index>
+			<index name="wagtailcore_site_root_page_id_e02fb95c" unique="NORMAL" >
+				<column name="root_page_id" />
+			</index>
+			<fk name="Fk" to_schema="Default" to_table="wagtailcore_page" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="root_page_id" pk="id" />
+			</fk>
+		</table>
+		<table name="wagtailcore_task" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<column name="name" type="VARCHAR" length="255" jt="12" mandatory="y" />
+			<column name="active" type="BOOLEAN" jt="-7" mandatory="y" />
+			<column name="content_type_id" type="INTEGER" jt="4" mandatory="y" />
+			<index name="pk_wagtailcore_task" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="wagtailcore_task_content_type_id_249ab8ba" unique="NORMAL" >
+				<column name="content_type_id" />
+			</index>
+			<fk name="Fk" to_schema="Default" to_table="django_content_type" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="content_type_id" pk="id" />
+			</fk>
+		</table>
+		<table name="wagtailcore_taskstate" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<column name="status" type="VARCHAR" length="50" jt="12" mandatory="y" />
+			<column name="started_at" type="DATETIME" jt="93" mandatory="y" />
+			<column name="finished_at" type="DATETIME" jt="93" />
+			<column name="content_type_id" type="INTEGER" jt="4" mandatory="y" />
+			<column name="page_revision_id" type="INTEGER" jt="4" mandatory="y" />
+			<column name="task_id" type="INTEGER" jt="4" mandatory="y" />
+			<column name="workflow_state_id" type="INTEGER" jt="4" mandatory="y" />
+			<column name="finished_by_id" type="INTEGER" jt="4" />
+			<column name="comment" type="TEXT" jt="-1" mandatory="y" />
+			<index name="pk_wagtailcore_taskstate" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="wagtailcore_taskstate_content_type_id_0a758fdc" unique="NORMAL" >
+				<column name="content_type_id" />
+			</index>
+			<index name="wagtailcore_taskstate_page_revision_id_9f52c88e" unique="NORMAL" >
+				<column name="page_revision_id" />
+			</index>
+			<index name="wagtailcore_taskstate_task_id_c3677c34" unique="NORMAL" >
+				<column name="task_id" />
+			</index>
+			<index name="wagtailcore_taskstate_workflow_state_id_9239a775" unique="NORMAL" >
+				<column name="workflow_state_id" />
+			</index>
+			<index name="wagtailcore_taskstate_finished_by_id_13f98229" unique="NORMAL" >
+				<column name="finished_by_id" />
+			</index>
+			<fk name="Fk" to_schema="Default" to_table="django_content_type" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="content_type_id" pk="id" />
+			</fk>
+			<fk name="Fk" to_schema="Default" to_table="wagtailcore_pagerevision" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="page_revision_id" pk="id" />
+			</fk>
+			<fk name="Fk" to_schema="Default" to_table="wagtailcore_task" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="task_id" pk="id" />
+			</fk>
+			<fk name="Fk" to_schema="Default" to_table="wagtailcore_workflowstate" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="workflow_state_id" pk="id" />
+			</fk>
+			<fk name="Fk" to_schema="Default" to_table="auth_user" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="finished_by_id" pk="id" />
+			</fk>
+		</table>
+		<table name="wagtailcore_workflow" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<column name="name" type="VARCHAR" length="255" jt="12" mandatory="y" />
+			<column name="active" type="BOOLEAN" jt="-7" mandatory="y" />
+			<index name="pk_wagtailcore_workflow" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+		</table>
+		<table name="wagtailcore_workflowpage" spec="" >
+			<column name="page_id" type="INTEGER" jt="4" mandatory="y" />
+			<column name="workflow_id" type="INTEGER" jt="4" mandatory="y" />
+			<index name="pk_wagtailcore_workflowpage" unique="PRIMARY_KEY" >
+				<column name="page_id" />
+			</index>
+			<index name="wagtailcore_workflowpage_workflow_id_56f56ff6" unique="NORMAL" >
+				<column name="workflow_id" />
+			</index>
+			<fk name="Fk" to_schema="Default" to_table="wagtailcore_page" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="page_id" pk="id" />
+			</fk>
+			<fk name="Fk" to_schema="Default" to_table="wagtailcore_workflow" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="workflow_id" pk="id" />
+			</fk>
+		</table>
+		<table name="wagtailcore_workflowstate" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<column name="created_at" type="DATETIME" jt="93" mandatory="y" />
+			<column name="current_task_state_id" type="INTEGER" jt="4" />
+			<column name="page_id" type="INTEGER" jt="4" mandatory="y" />
+			<column name="requested_by_id" type="INTEGER" jt="4" />
+			<column name="workflow_id" type="INTEGER" jt="4" mandatory="y" />
+			<column name="status" type="VARCHAR" length="50" jt="12" mandatory="y" />
+			<index name="pk_wagtailcore_workflowstate" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="unq_wagtailcore_workflowstate_current_task_state_id" unique="UNIQUE_KEY" >
+				<column name="current_task_state_id" />
+			</index>
+			<index name="wagtailcore_workflowstate_page_id_6c962862" unique="NORMAL" >
+				<column name="page_id" />
+			</index>
+			<index name="wagtailcore_workflowstate_requested_by_id_4090bca3" unique="NORMAL" >
+				<column name="requested_by_id" />
+			</index>
+			<index name="wagtailcore_workflowstate_workflow_id_1f18378f" unique="NORMAL" >
+				<column name="workflow_id" />
+			</index>
+			<index name="unique_in_progress_workflow" unique="UNIQUE_INDEX" options="WHERE &quot;status&quot; IN (&#039;in_progress&#039;,  &#039;needs_changes&#039;)" >
+				<column name="page_id" />
+			</index>
+			<fk name="Fk" to_schema="Default" to_table="wagtailcore_taskstate" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="current_task_state_id" pk="id" />
+			</fk>
+			<fk name="Fk" to_schema="Default" to_table="wagtailcore_page" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="page_id" pk="id" />
+			</fk>
+			<fk name="Fk" to_schema="Default" to_table="auth_user" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="requested_by_id" pk="id" />
+			</fk>
+			<fk name="Fk" to_schema="Default" to_table="wagtailcore_workflow" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="workflow_id" pk="id" />
+			</fk>
+		</table>
+		<table name="wagtailcore_workflowtask" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<column name="sort_order" type="INTEGER" jt="4" />
+			<column name="task_id" type="INTEGER" jt="4" mandatory="y" />
+			<column name="workflow_id" type="INTEGER" jt="4" mandatory="y" />
+			<index name="pk_wagtailcore_workflowtask" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="wagtailcore_workflowtask_workflow_id_task_id_4ec7a62b_uniq" unique="UNIQUE_INDEX" >
+				<column name="workflow_id" />
+				<column name="task_id" />
+			</index>
+			<index name="wagtailcore_workflowtask_task_id_ce7716fe" unique="NORMAL" >
+				<column name="task_id" />
+			</index>
+			<index name="wagtailcore_workflowtask_workflow_id_b9717175" unique="NORMAL" >
+				<column name="workflow_id" />
+			</index>
+			<fk name="Fk" to_schema="Default" to_table="wagtailcore_task" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="task_id" pk="id" />
+			</fk>
+			<fk name="Fk" to_schema="Default" to_table="wagtailcore_workflow" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="workflow_id" pk="id" />
+			</fk>
+		</table>
+		<table name="wagtaildocs_document" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<column name="title" type="VARCHAR" length="255" jt="12" mandatory="y" />
+			<column name="file" type="VARCHAR" length="100" jt="12" mandatory="y" />
+			<column name="created_at" type="DATETIME" jt="93" mandatory="y" />
+			<column name="uploaded_by_user_id" type="INTEGER" jt="4" />
+			<column name="collection_id" type="INTEGER" jt="4" mandatory="y" />
+			<column name="file_size" type="INTEGER" jt="4" unsigned="y" />
+			<column name="file_hash" type="VARCHAR" length="40" jt="12" mandatory="y" />
+			<index name="pk_wagtaildocs_document" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="wagtaildocs_document_uploaded_by_user_id_17258b41" unique="NORMAL" >
+				<column name="uploaded_by_user_id" />
+			</index>
+			<index name="wagtaildocs_document_collection_id_23881625" unique="NORMAL" >
+				<column name="collection_id" />
+			</index>
+			<constraint name="Cns_wagtaildocs_document_file_size" >
+				<string><![CDATA["file_size" >= 0]]></string>
+			</constraint>
+			<fk name="Fk" to_schema="Default" to_table="auth_user" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="uploaded_by_user_id" pk="id" />
+			</fk>
+			<fk name="Fk" to_schema="Default" to_table="wagtailcore_collection" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="collection_id" pk="id" />
+			</fk>
+		</table>
+		<table name="wagtaildocs_uploadeddocument" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<column name="file" type="VARCHAR" length="200" jt="12" mandatory="y" />
+			<column name="uploaded_by_user_id" type="INTEGER" jt="4" />
+			<index name="pk_wagtaildocs_uploadeddocument" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="wagtaildocs_uploadeddocument_uploaded_by_user_id_8dd61a73" unique="NORMAL" >
+				<column name="uploaded_by_user_id" />
+			</index>
+			<fk name="Fk" to_schema="Default" to_table="auth_user" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="uploaded_by_user_id" pk="id" />
+			</fk>
+		</table>
+		<table name="wagtailembeds_embed" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<column name="url" type="TEXT" jt="-1" mandatory="y" />
+			<column name="max_width" type="SMALLINT" jt="5" />
+			<column name="type" type="VARCHAR" length="10" jt="12" mandatory="y" />
+			<column name="html" type="TEXT" jt="-1" mandatory="y" />
+			<column name="title" type="TEXT" jt="-1" mandatory="y" />
+			<column name="author_name" type="TEXT" jt="-1" mandatory="y" />
+			<column name="provider_name" type="TEXT" jt="-1" mandatory="y" />
+			<column name="thumbnail_url" type="TEXT" jt="-1" mandatory="y" />
+			<column name="width" type="INTEGER" jt="4" />
+			<column name="height" type="INTEGER" jt="4" />
+			<column name="last_updated" type="DATETIME" jt="93" mandatory="y" />
+			<column name="hash" type="VARCHAR" length="32" jt="12" mandatory="y" />
+			<column name="cache_until" type="DATETIME" jt="93" />
+			<index name="pk_wagtailembeds_embed" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="unq_wagtailembeds_embed_hash" unique="UNIQUE_KEY" >
+				<column name="hash" />
+			</index>
+			<index name="wagtailembeds_embed_cache_until_26c94bb0" unique="NORMAL" >
+				<column name="cache_until" />
+			</index>
+		</table>
+		<table name="wagtailforms_formsubmission" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<column name="submit_time" type="DATETIME" jt="93" mandatory="y" />
+			<column name="page_id" type="INTEGER" jt="4" mandatory="y" />
+			<column name="form_data" type="TEXT" jt="-1" mandatory="y" />
+			<index name="pk_wagtailforms_formsubmission" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="wagtailforms_formsubmission_page_id_e48e93e7" unique="NORMAL" >
+				<column name="page_id" />
+			</index>
+			<constraint name="Cns_wagtailforms_formsubmission_form_data" >
+				<string><![CDATA[(JSON_VALID("form_data") OR "form_data" IS NULL)]]></string>
+			</constraint>
+			<fk name="Fk" to_schema="Default" to_table="wagtailcore_page" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="page_id" pk="id" />
+			</fk>
+		</table>
+		<table name="wagtailimages_image" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<column name="title" type="VARCHAR" length="255" jt="12" mandatory="y" />
+			<column name="file" type="VARCHAR" length="100" jt="12" mandatory="y" />
+			<column name="width" type="INTEGER" jt="4" mandatory="y" />
+			<column name="height" type="INTEGER" jt="4" mandatory="y" />
+			<column name="created_at" type="DATETIME" jt="93" mandatory="y" />
+			<column name="focal_point_x" type="INTEGER" jt="4" unsigned="y" />
+			<column name="focal_point_y" type="INTEGER" jt="4" unsigned="y" />
+			<column name="focal_point_width" type="INTEGER" jt="4" unsigned="y" />
+			<column name="focal_point_height" type="INTEGER" jt="4" unsigned="y" />
+			<column name="uploaded_by_user_id" type="INTEGER" jt="4" />
+			<column name="file_size" type="INTEGER" jt="4" unsigned="y" />
+			<column name="collection_id" type="INTEGER" jt="4" mandatory="y" />
+			<column name="file_hash" type="VARCHAR" length="40" jt="12" mandatory="y" />
+			<index name="pk_wagtailimages_image" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="wagtailimages_image_created_at_86fa6cd4" unique="NORMAL" >
+				<column name="created_at" />
+			</index>
+			<index name="wagtailimages_image_uploaded_by_user_id_5d73dc75" unique="NORMAL" >
+				<column name="uploaded_by_user_id" />
+			</index>
+			<index name="wagtailimages_image_collection_id_c2f8af7e" unique="NORMAL" >
+				<column name="collection_id" />
+			</index>
+			<index name="wagtailimages_image_file_hash_fb5bbb23" unique="NORMAL" >
+				<column name="file_hash" />
+			</index>
+			<constraint name="Cns_wagtailimages_image_focal_point_x" >
+				<string><![CDATA["focal_point_x" >= 0]]></string>
+			</constraint>
+			<constraint name="Cns_wagtailimages_image_focal_point_y" >
+				<string><![CDATA["focal_point_y" >= 0]]></string>
+			</constraint>
+			<constraint name="Cns_wagtailimages_image_focal_point_width" >
+				<string><![CDATA["focal_point_width" >= 0]]></string>
+			</constraint>
+			<constraint name="Cns_wagtailimages_image_focal_point_height" >
+				<string><![CDATA["focal_point_height" >= 0]]></string>
+			</constraint>
+			<constraint name="Cns_wagtailimages_image_file_size" >
+				<string><![CDATA["file_size" >= 0]]></string>
+			</constraint>
+			<fk name="Fk" to_schema="Default" to_table="auth_user" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="uploaded_by_user_id" pk="id" />
+			</fk>
+			<fk name="Fk" to_schema="Default" to_table="wagtailcore_collection" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="collection_id" pk="id" />
+			</fk>
+		</table>
+		<table name="wagtailimages_rendition" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<column name="file" type="VARCHAR" length="100" jt="12" mandatory="y" />
+			<column name="width" type="INTEGER" jt="4" mandatory="y" />
+			<column name="height" type="INTEGER" jt="4" mandatory="y" />
+			<column name="focal_point_key" type="VARCHAR" length="16" jt="12" mandatory="y" />
+			<column name="filter_spec" type="VARCHAR" length="255" jt="12" mandatory="y" />
+			<column name="image_id" type="INTEGER" jt="4" mandatory="y" />
+			<index name="pk_wagtailimages_rendition" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="wagtailimages_rendition_image_id_filter_spec_focal_point_key_323c8fe0_uniq" unique="UNIQUE_INDEX" >
+				<column name="image_id" />
+				<column name="filter_spec" />
+				<column name="focal_point_key" />
+			</index>
+			<index name="wagtailimages_rendition_filter_spec_1cba3201" unique="NORMAL" >
+				<column name="filter_spec" />
+			</index>
+			<index name="wagtailimages_rendition_image_id_3e1fd774" unique="NORMAL" >
+				<column name="image_id" />
+			</index>
+			<fk name="Fk" to_schema="Default" to_table="wagtailimages_image" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="image_id" pk="id" />
+			</fk>
+		</table>
+		<table name="wagtailimages_uploadedimage" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<column name="file" type="VARCHAR" length="200" jt="12" mandatory="y" />
+			<column name="uploaded_by_user_id" type="INTEGER" jt="4" />
+			<index name="pk_wagtailimages_uploadedimage" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="wagtailimages_uploadedimage_uploaded_by_user_id_85921689" unique="NORMAL" >
+				<column name="uploaded_by_user_id" />
+			</index>
+			<fk name="Fk" to_schema="Default" to_table="auth_user" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="uploaded_by_user_id" pk="id" />
+			</fk>
+		</table>
+		<table name="wagtailredirects_redirect" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<column name="old_path" type="VARCHAR" length="255" jt="12" mandatory="y" />
+			<column name="is_permanent" type="BOOLEAN" jt="-7" mandatory="y" />
+			<column name="redirect_link" type="VARCHAR" length="255" jt="12" mandatory="y" />
+			<column name="redirect_page_id" type="INTEGER" jt="4" />
+			<column name="site_id" type="INTEGER" jt="4" />
+			<column name="automatically_created" type="BOOLEAN" jt="-7" mandatory="y" />
+			<column name="created_at" type="DATETIME" jt="93" />
+			<column name="redirect_page_route_path" type="VARCHAR" length="255" jt="12" mandatory="y" />
+			<index name="pk_wagtailredirects_redirect" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="wagtailredirects_redirect_old_path_site_id_783622d7_uniq" unique="UNIQUE_INDEX" >
+				<column name="old_path" />
+				<column name="site_id" />
+			</index>
+			<index name="wagtailredirects_redirect_old_path_bb35247b" unique="NORMAL" >
+				<column name="old_path" />
+			</index>
+			<index name="wagtailredirects_redirect_redirect_page_id_b5728a8f" unique="NORMAL" >
+				<column name="redirect_page_id" />
+			</index>
+			<index name="wagtailredirects_redirect_site_id_780a0e1e" unique="NORMAL" >
+				<column name="site_id" />
+			</index>
+			<fk name="Fk" to_schema="Default" to_table="wagtailcore_page" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="redirect_page_id" pk="id" />
+			</fk>
+			<fk name="Fk" to_schema="Default" to_table="wagtailcore_site" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="site_id" pk="id" />
+			</fk>
+		</table>
+		<table name="wagtailsearch_editorspick" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<column name="sort_order" type="INTEGER" jt="4" />
+			<column name="description" type="TEXT" jt="-1" mandatory="y" />
+			<column name="page_id" type="INTEGER" jt="4" mandatory="y" />
+			<column name="query_id" type="INTEGER" jt="4" mandatory="y" />
+			<index name="pk_wagtailsearch_editorspick" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="wagtailsearch_editorspick_page_id_28cbc274" unique="NORMAL" >
+				<column name="page_id" />
+			</index>
+			<index name="wagtailsearch_editorspick_query_id_c6eee4a0" unique="NORMAL" >
+				<column name="query_id" />
+			</index>
+			<fk name="Fk" to_schema="Default" to_table="wagtailcore_page" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="page_id" pk="id" />
+			</fk>
+			<fk name="Fk" to_schema="Default" to_table="wagtailsearch_query" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="query_id" pk="id" />
+			</fk>
+		</table>
+		<table name="wagtailsearch_indexentry" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<column name="object_id" type="VARCHAR" length="50" jt="12" mandatory="y" />
+			<column name="title_norm" type="REAL" jt="8" mandatory="y" />
+			<column name="content_type_id" type="INTEGER" jt="4" mandatory="y" />
+			<column name="autocomplete" type="TEXT" jt="-1" />
+			<column name="body" type="TEXT" jt="-1" />
+			<column name="title" type="TEXT" jt="-1" mandatory="y" />
+			<index name="pk_wagtailsearch_indexentry" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="wagtailsearch_indexentry_content_type_id_object_id_bcd7ba73_uniq" unique="UNIQUE_INDEX" >
+				<column name="content_type_id" />
+				<column name="object_id" />
+			</index>
+			<index name="wagtailsearch_indexentry_content_type_id_62ed694f" unique="NORMAL" >
+				<column name="content_type_id" />
+			</index>
+			<fk name="Fk" to_schema="Default" to_table="django_content_type" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="content_type_id" pk="id" />
+			</fk>
+		</table>
+		<table name="wagtailsearch_indexentry_fts" />
+		<table name="wagtailsearch_indexentry_fts_config" >
+			<column name="k" type="VARCHAR" jt="12" />
+			<index name="pk_wagtailsearch_indexentry_fts_config" unique="UNIQUE_KEY" >
+				<column name="k" />
+			</index>
+		</table>
+		<table name="wagtailsearch_indexentry_fts_content" >
+			<column name="id" type="INTEGER" jt="4" />
+			<index name="pk_wagtailsearch_indexentry_fts_content" unique="UNIQUE_KEY" >
+				<column name="id" />
+			</index>
+		</table>
+		<table name="wagtailsearch_indexentry_fts_data" spec="" >
+			<column name="id" type="INTEGER" jt="4" />
+			<column name="block" type="BLOB" jt="2004" />
+			<index name="pk_wagtailsearch_indexentry_fts_data" unique="UNIQUE_KEY" >
+				<column name="id" />
+			</index>
+		</table>
+		<table name="wagtailsearch_indexentry_fts_docsize" spec="" >
+			<column name="id" type="INTEGER" jt="4" />
+			<column name="sz" type="BLOB" jt="2004" />
+			<index name="pk_wagtailsearch_indexentry_fts_docsize" unique="UNIQUE_KEY" >
+				<column name="id" />
+			</index>
+		</table>
+		<table name="wagtailsearch_indexentry_fts_idx" />
+		<table name="wagtailsearch_query" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<column name="query_string" type="VARCHAR" length="255" jt="12" mandatory="y" />
+			<index name="pk_wagtailsearch_query" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="unq_wagtailsearch_query_query_string" unique="UNIQUE_KEY" >
+				<column name="query_string" />
+			</index>
+		</table>
+		<table name="wagtailsearch_querydailyhits" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<column name="date" type="DATE" jt="91" mandatory="y" />
+			<column name="hits" type="INTEGER" jt="4" mandatory="y" />
+			<column name="query_id" type="INTEGER" jt="4" mandatory="y" />
+			<index name="pk_wagtailsearch_querydailyhits" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="wagtailsearch_querydailyhits_query_id_date_1dd232e6_uniq" unique="UNIQUE_INDEX" >
+				<column name="query_id" />
+				<column name="date" />
+			</index>
+			<index name="wagtailsearch_querydailyhits_query_id_2185994b" unique="NORMAL" >
+				<column name="query_id" />
+			</index>
+			<fk name="Fk" to_schema="Default" to_table="wagtailsearch_query" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="query_id" pk="id" />
+			</fk>
+		</table>
+		<table name="wagtailusers_userprofile" spec="" >
+			<column name="id" type="INTEGER" jt="4" mandatory="y" >
+				<identity><![CDATA[AUTOINCREMENT]]></identity>
+			</column>
+			<column name="submitted_notifications" type="BOOLEAN" jt="-7" mandatory="y" />
+			<column name="approved_notifications" type="BOOLEAN" jt="-7" mandatory="y" />
+			<column name="rejected_notifications" type="BOOLEAN" jt="-7" mandatory="y" />
+			<column name="user_id" type="INTEGER" jt="4" mandatory="y" />
+			<column name="preferred_language" type="VARCHAR" length="10" jt="12" mandatory="y" />
+			<column name="current_time_zone" type="VARCHAR" length="40" jt="12" mandatory="y" />
+			<column name="avatar" type="VARCHAR" length="100" jt="12" mandatory="y" />
+			<column name="updated_comments_notifications" type="BOOLEAN" jt="-7" mandatory="y" />
+			<index name="pk_wagtailusers_userprofile" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="unq_wagtailusers_userprofile_user_id" unique="UNIQUE_KEY" >
+				<column name="user_id" />
+			</index>
+			<fk name="Fk" to_schema="Default" to_table="auth_user" options="DEFERRABLE INITIALLY DEFERRED" >
+				<fk_column name="user_id" pk="id" />
+			</fk>
+		</table>
+		<trigger name="delete_wagtailsearch_indexentry_fts" table="wagtailsearch_indexentry" id="Trigger-b7" isSystem="false" >
+			<string><![CDATA[CREATE TRIGGER delete_wagtailsearch_indexentry_fts AFTER DELETE ON wagtailsearch_indexentry BEGIN DELETE FROM wagtailsearch_indexentry_fts WHERE rowid=OLD.id; END
+CREATE TRIGGER delete_wagtailsearch_indexentry_fts AFTER DELETE ON wagtailsearch_indexentry BEGIN DELETE FROM wagtailsearch_indexentry_fts WHERE rowid=OLD.id; END]]></string>
+		</trigger>
+		<trigger name="insert_wagtailsearch_indexentry_fts" table="wagtailsearch_indexentry" id="Trigger-a2f" isSystem="false" >
+			<string><![CDATA[CREATE TRIGGER insert_wagtailsearch_indexentry_fts AFTER INSERT ON wagtailsearch_indexentry BEGIN INSERT INTO wagtailsearch_indexentry_fts(title, body, autocomplete, rowid) VALUES (NEW.title, NEW.body, NEW.autocomplete, NEW.id); END
+CREATE TRIGGER insert_wagtailsearch_indexentry_fts AFTER INSERT ON wagtailsearch_indexentry BEGIN INSERT INTO wagtailsearch_indexentry_fts(title, body, autocomplete, rowid) VALUES (NEW.title, NEW.body, NEW.autocomplete, NEW.id); END]]></string>
+		</trigger>
+		<trigger name="update_wagtailsearch_indexentry_fts" table="wagtailsearch_indexentry" id="Trigger-2477" isSystem="false" >
+			<string><![CDATA[CREATE TRIGGER update_wagtailsearch_indexentry_fts AFTER UPDATE ON wagtailsearch_indexentry BEGIN UPDATE wagtailsearch_indexentry_fts SET title=NEW.title, body=NEW.body, autocomplete=NEW.autocomplete WHERE rowid=NEW.id; END
+CREATE TRIGGER update_wagtailsearch_indexentry_fts AFTER UPDATE ON wagtailsearch_indexentry BEGIN UPDATE wagtailsearch_indexentry_fts SET title=NEW.title, body=NEW.body, autocomplete=NEW.autocomplete WHERE rowid=NEW.id; END]]></string>
+		</trigger>
+	</schema>
+	<connector name="Sqlite" database="Sqlite" driver_class="org.sqlite.JDBC" driver_jar="sqlite-jdbc-3.36.0.3.jar" driver_desc="Standard" host="localhost" port="7210" instance="/Users/aliousy/Desktop/technical-test/instagram/db.sqlite3" />
+	<layout name="Main Layout" id="Layout-20df" show_relation="columns" >
+		<entity schema="Default" name="auth_group" color="BEBEF4" x="3872" y="880" />
+		<entity schema="Default" name="auth_group_permissions" color="BEBEF4" x="4080" y="880" />
+		<entity schema="Default" name="auth_permission" color="D1BEF4" x="2896" y="1024" />
+		<entity schema="Default" name="auth_user" color="BEBEF4" x="3632" y="880" />
+		<entity schema="Default" name="auth_user_groups" color="BEBEF4" x="3872" y="1232" />
+		<entity schema="Default" name="auth_user_user_permissions" color="D1BEF4" x="3152" y="1264" />
+		<entity schema="Default" name="blog_albumpage" color="BEBEF4" x="992" y="912" />
+		<entity schema="Default" name="blog_albumphotos" color="BEBEF4" x="1216" y="912" />
+		<entity schema="Default" name="blog_blogcomment" color="C7F4BE" x="1824" y="1248" />
+		<entity schema="Default" name="blog_blogindexpage" color="C7F4BE" x="1840" y="880" />
+		<entity schema="Default" name="blog_bloglikers" color="C7F4BE" x="1648" y="1040" />
+		<entity schema="Default" name="blog_blogpage" color="C7F4BE" x="1840" y="1056" />
+		<entity schema="Default" name="blog_blogpagetag" color="BEBEF4" x="976" y="1072" />
+		<entity schema="Default" name="django_admin_log" color="C7F4BE" x="1776" y="80" />
+		<entity schema="Default" name="django_content_type" color="C7F4BE" x="1536" y="80" />
+		<entity schema="Default" name="django_migrations" color="C7F4BE" x="2016" y="80" />
+		<entity schema="Default" name="django_session" color="C7F4BE" x="2016" y="352" />
+		<entity schema="Default" name="home_homepage" color="D1BEF4" x="2896" y="1264" />
+		<entity schema="Default" name="home_people" color="C7F4BE" x="2048" y="1056" />
+		<entity schema="Default" name="taggit_tag" color="BEBEF4" x="1216" y="1264" />
+		<entity schema="Default" name="taggit_taggeditem" color="BEBEF4" x="1392" y="1264" />
+		<entity schema="Default" name="wagtailadmin_admin" color="3986C1" x="4800" y="1760" />
+		<entity schema="Default" name="wagtailcore_collection" color="BED3F4" x="1456" y="2160" />
+		<entity schema="Default" name="wagtailcore_collectionviewrestriction" color="BED3F4" x="1232" y="1520" />
+		<entity schema="Default" name="wagtailcore_collectionviewrestriction_groups" color="BED3F4" x="1552" y="1520" />
+		<entity schema="Default" name="wagtailcore_comment" color="F4DDBE" x="2304" y="1520" />
+		<entity schema="Default" name="wagtailcore_commentreply" color="F4DDBE" x="2544" y="1840" />
+		<entity schema="Default" name="wagtailcore_groupapprovaltask" color="D1BEF4" x="384" y="1744" />
+		<entity schema="Default" name="wagtailcore_groupapprovaltask_groups" color="D1BEF4" x="48" y="1904" />
+		<entity schema="Default" name="wagtailcore_groupcollectionpermission" color="D1BEF4" x="3152" y="1024" />
+		<entity schema="Default" name="wagtailcore_grouppagepermission" color="D1BEF4" x="80" y="1696" />
+		<entity schema="Default" name="wagtailcore_locale" color="BED3F4" x="1552" y="1936" />
+		<entity schema="Default" name="wagtailcore_modellogentry" color="C7F4BE" x="1520" y="272" />
+		<entity schema="Default" name="wagtailcore_page" color="D1BEF4" x="2576" y="640" />
+		<entity schema="Default" name="wagtailcore_pagelogentry" color="D1BEF4" x="2288" y="896" />
+		<entity schema="Default" name="wagtailcore_pagerevision" color="D1BEF4" x="2896" y="640" />
+		<entity schema="Default" name="wagtailcore_pagesubscription" color="D1BEF4" x="2576" y="1264" />
+		<entity schema="Default" name="wagtailcore_pageviewrestriction" color="BEBEF4" x="3552" y="640" />
+		<entity schema="Default" name="wagtailcore_pageviewrestriction_groups" color="BEBEF4" x="3872" y="640" />
+		<entity schema="Default" name="wagtailcore_site" color="BED3F4" x="1776" y="1728" />
+		<entity schema="Default" name="wagtailcore_task" color="BED3F4" x="1552" y="1728" />
+		<entity schema="Default" name="wagtailcore_taskstate" color="BED3F4" x="1312" y="1728" />
+		<entity schema="Default" name="wagtailcore_workflow" color="D1BEF4" x="672" y="1712" />
+		<entity schema="Default" name="wagtailcore_workflowpage" color="F4DDBE" x="2800" y="1520" />
+		<entity schema="Default" name="wagtailcore_workflowstate" color="F4DDBE" x="2544" y="1520" />
+		<entity schema="Default" name="wagtailcore_workflowtask" color="D1BEF4" x="656" y="1904" />
+		<entity schema="Default" name="wagtaildocs_document" color="BED3F4" x="1696" y="2160" />
+		<entity schema="Default" name="wagtaildocs_uploadeddocument" color="BED3F4" x="1952" y="2160" />
+		<entity schema="Default" name="wagtailembeds_embed" color="BED3F4" x="2000" y="1728" />
+		<entity schema="Default" name="wagtailforms_formsubmission" color="D1BEF4" x="2272" y="1264" />
+		<entity schema="Default" name="wagtailimages_image" color="BED3F4" x="1200" y="2160" />
+		<entity schema="Default" name="wagtailimages_rendition" color="BED3F4" x="1200" y="2528" />
+		<entity schema="Default" name="wagtailimages_uploadedimage" color="BED3F4" x="1456" y="2528" />
+		<entity schema="Default" name="wagtailredirects_redirect" color="D1BEF4" x="912" y="1712" />
+		<entity schema="Default" name="wagtailsearch_editorspick" color="F4DDBE" x="2288" y="1840" />
+		<entity schema="Default" name="wagtailsearch_indexentry" color="F4DDBE" x="3312" y="1760" />
+		<entity schema="Default" name="wagtailsearch_indexentry_fts" color="F4DDBE" x="4496" y="1920" />
+		<entity schema="Default" name="wagtailsearch_indexentry_fts_config" color="F4DDBE" x="3568" y="1760" />
+		<entity schema="Default" name="wagtailsearch_indexentry_fts_content" color="F4DDBE" x="3888" y="1760" />
+		<entity schema="Default" name="wagtailsearch_indexentry_fts_data" color="F4DDBE" x="3888" y="1920" />
+		<entity schema="Default" name="wagtailsearch_indexentry_fts_docsize" color="F4DDBE" x="4192" y="2096" />
+		<entity schema="Default" name="wagtailsearch_indexentry_fts_idx" color="F4DDBE" x="4192" y="1920" />
+		<entity schema="Default" name="wagtailsearch_query" color="F4DDBE" x="3088" y="1760" />
+		<entity schema="Default" name="wagtailsearch_querydailyhits" color="F4DDBE" x="2272" y="2064" />
+		<entity schema="Default" name="wagtailusers_userprofile" color="BEBEF4" x="3520" y="1232" />
+		<callout x="2576" y="512" pointer="Round" >
+			<comment><![CDATA[This is a layout - a diagram with tools. 
+Add tables by drag and drop from the project structure tree. 
+For a better understanding of the schema, create multiple layouts with the same or different tables. 
+Double-click table headers, columns, or foreign keys to edit. 
+Drop this callout from its right-click popup menu.]]></comment>
+		</callout>
+		<group name="wagtailsearch_query" color="F7F2EC" >
+			<entity schema="Default" name="wagtailsearch_query" />
+			<entity schema="Default" name="wagtailsearch_indexentry" />
+			<entity schema="Default" name="wagtailsearch_indexentry_fts_config" />
+			<entity schema="Default" name="wagtailsearch_indexentry_fts_content" />
+			<entity schema="Default" name="wagtailsearch_indexentry_fts_data" />
+			<entity schema="Default" name="wagtailsearch_indexentry_fts_idx" />
+			<entity schema="Default" name="wagtailsearch_indexentry_fts_docsize" />
+			<entity schema="Default" name="wagtailsearch_indexentry_fts" />
+		</group>
+		<group name="blog_albumpage" color="ECECF7" >
+			<entity schema="Default" name="blog_albumpage" />
+			<entity schema="Default" name="blog_albumphotos" />
+			<entity schema="Default" name="blog_blogpagetag" />
+			<entity schema="Default" name="taggit_tag" />
+			<entity schema="Default" name="taggit_taggeditem" />
+		</group>
+		<group name="django_content_type" color="EEF7EC" >
+			<entity schema="Default" name="django_content_type" />
+			<entity schema="Default" name="django_admin_log" />
+			<entity schema="Default" name="wagtailcore_modellogentry" />
+			<entity schema="Default" name="django_migrations" />
+			<entity schema="Default" name="django_session" />
+		</group>
+		<group name="wagtailcore_workflow" color="F0ECF7" >
+			<entity schema="Default" name="wagtailcore_workflow" />
+			<entity schema="Default" name="wagtailredirects_redirect" />
+			<entity schema="Default" name="wagtailcore_workflowtask" />
+			<entity schema="Default" name="wagtailcore_groupapprovaltask" />
+			<entity schema="Default" name="wagtailcore_groupapprovaltask_groups" />
+			<entity schema="Default" name="wagtailcore_grouppagepermission" />
+		</group>
+		<group name="wagtailimages_image" color="ECF0F7" >
+			<entity schema="Default" name="wagtailimages_image" />
+			<entity schema="Default" name="wagtailcore_collection" />
+			<entity schema="Default" name="wagtaildocs_document" />
+			<entity schema="Default" name="wagtaildocs_uploadeddocument" />
+			<entity schema="Default" name="wagtailimages_uploadedimage" />
+			<entity schema="Default" name="wagtailimages_rendition" />
+		</group>
+		<group name="blog_blogpage" color="EEF7EC" >
+			<entity schema="Default" name="blog_blogpage" />
+			<entity schema="Default" name="home_people" />
+			<entity schema="Default" name="blog_blogcomment" />
+			<entity schema="Default" name="blog_bloglikers" />
+			<entity schema="Default" name="blog_blogindexpage" />
+		</group>
+		<group name="wagtailcore_comment" color="F7F2EC" >
+			<entity schema="Default" name="wagtailcore_comment" />
+			<entity schema="Default" name="wagtailcore_workflowstate" />
+			<entity schema="Default" name="wagtailcore_commentreply" />
+			<entity schema="Default" name="wagtailsearch_editorspick" />
+			<entity schema="Default" name="wagtailsearch_querydailyhits" />
+			<entity schema="Default" name="wagtailcore_workflowpage" />
+		</group>
+		<group name="wagtailcore_taskstate" color="ECF0F7" >
+			<entity schema="Default" name="wagtailcore_taskstate" />
+			<entity schema="Default" name="wagtailcore_task" />
+			<entity schema="Default" name="wagtailcore_site" />
+			<entity schema="Default" name="wagtailcore_collectionviewrestriction" />
+			<entity schema="Default" name="wagtailcore_collectionviewrestriction_groups" />
+			<entity schema="Default" name="wagtailcore_locale" />
+			<entity schema="Default" name="wagtailembeds_embed" />
+		</group>
+		<group name="auth_user" color="ECECF7" >
+			<entity schema="Default" name="auth_user" />
+			<entity schema="Default" name="auth_group" />
+			<entity schema="Default" name="auth_user_groups" />
+			<entity schema="Default" name="auth_group_permissions" />
+			<entity schema="Default" name="wagtailcore_pageviewrestriction" />
+			<entity schema="Default" name="wagtailcore_pageviewrestriction_groups" />
+			<entity schema="Default" name="wagtailusers_userprofile" />
+		</group>
+		<group name="wagtailcore_page" color="F0ECF7" >
+			<entity schema="Default" name="wagtailcore_page" />
+			<entity schema="Default" name="wagtailcore_pagerevision" />
+			<entity schema="Default" name="auth_permission" />
+			<entity schema="Default" name="wagtailcore_groupcollectionpermission" />
+			<entity schema="Default" name="home_homepage" />
+			<entity schema="Default" name="wagtailcore_pagesubscription" />
+			<entity schema="Default" name="auth_user_user_permissions" />
+			<entity schema="Default" name="wagtailforms_formsubmission" />
+			<entity schema="Default" name="wagtailcore_pagelogentry" />
+		</group>
+		<script name="blog_bloglikers" id="Editor-17cb" language="SQL" >
+			<string><![CDATA[DELETE blog_bloglikers WHERE blog_bloglikers.id = 8;]]></string>
+		</script>
+		<script name="blog_bloglikers_001" id="Editor-14ce" language="SQL" >
+			<string><![CDATA[SELECT id, sort_order, page_id, people_id
+FROM
+	blog_bloglikers s;]]></string>
+		</script>
+		<script name="blog_bloglikers_002" id="Editor-13ad" language="SQL" >
+			<string><![CDATA[DELETE FROM blog_bloglikers WHERE id = 8;]]></string>
+		</script>
+		<script name="blog_bloglikers_003" id="Editor-1291" language="SQL" >
+			<string><![CDATA[SELECT id, sort_order, page_id, people_id
+FROM
+	blog_bloglikers s;]]></string>
+		</script>
+	</layout>
+	<layout name="~Layout with Sample Tools" id="Layout-2ea" show_column_type="y" show_relation="columns" >
+		<entity schema="Default" name="auth_group" color="BEBEF4" x="3536" y="848" />
+		<entity schema="Default" name="auth_group_permissions" color="BEBEF4" x="3824" y="848" />
+		<entity schema="Default" name="auth_permission" color="D1BEF4" x="2432" y="992" />
+		<entity schema="Default" name="auth_user" color="BEBEF4" x="3216" y="848" />
+		<entity schema="Default" name="auth_user_groups" color="BEBEF4" x="3536" y="1200" />
+		<entity schema="Default" name="auth_user_user_permissions" color="D1BEF4" x="2752" y="1232" />
+		<entity schema="Default" name="blog_albumpage" color="BEBEF4" x="64" y="880" />
+		<entity schema="Default" name="blog_albumphotos" color="BEBEF4" x="336" y="880" />
+		<entity schema="Default" name="blog_blogcomment" color="C7F4BE" x="1152" y="1216" />
+		<entity schema="Default" name="blog_blogindexpage" color="C7F4BE" x="896" y="1040" />
+		<entity schema="Default" name="blog_bloglikers" color="C7F4BE" x="912" y="1216" />
+		<entity schema="Default" name="blog_blogpage" color="C7F4BE" x="1152" y="1024" />
+		<entity schema="Default" name="blog_blogpagetag" color="BEBEF4" x="48" y="1040" />
+		<entity schema="Default" name="django_admin_log" color="C7F4BE" x="1120" y="48" />
+		<entity schema="Default" name="django_content_type" color="C7F4BE" x="832" y="48" />
+		<entity schema="Default" name="django_migrations" color="C7F4BE" x="1408" y="48" />
+		<entity schema="Default" name="django_session" color="C7F4BE" x="1408" y="320" />
+		<entity schema="Default" name="home_homepage" color="D1BEF4" x="2432" y="1232" />
+		<entity schema="Default" name="home_people" color="C7F4BE" x="1408" y="1024" />
+		<entity schema="Default" name="taggit_tag" color="BEBEF4" x="336" y="1232" />
+		<entity schema="Default" name="taggit_taggeditem" color="BEBEF4" x="592" y="1232" />
+		<entity schema="Default" name="wagtailadmin_admin" color="3986C1" x="240" y="2144" />
+		<entity schema="Default" name="wagtailcore_collection" color="BED3F4" x="2032" y="2352" />
+		<entity schema="Default" name="wagtailcore_collectionviewrestriction" color="BED3F4" x="496" y="1488" />
+		<entity schema="Default" name="wagtailcore_collectionviewrestriction_groups" color="BED3F4" x="816" y="1488" />
+		<entity schema="Default" name="wagtailcore_comment" color="F4DDBE" x="1728" y="1488" />
+		<entity schema="Default" name="wagtailcore_commentreply" color="F4DDBE" x="2032" y="1808" />
+		<entity schema="Default" name="wagtailcore_groupapprovaltask" color="D1BEF4" x="784" y="2544" />
+		<entity schema="Default" name="wagtailcore_groupapprovaltask_groups" color="D1BEF4" x="736" y="2704" />
+		<entity schema="Default" name="wagtailcore_groupcollectionpermission" color="D1BEF4" x="2752" y="992" />
+		<entity schema="Default" name="wagtailcore_grouppagepermission" color="D1BEF4" x="480" y="2496" />
+		<entity schema="Default" name="wagtailcore_locale" color="BED3F4" x="1376" y="1696" />
+		<entity schema="Default" name="wagtailcore_modellogentry" color="C7F4BE" x="832" y="240" />
+		<entity schema="Default" name="wagtailcore_page" color="D1BEF4" x="2048" y="608" />
+		<entity schema="Default" name="wagtailcore_pagelogentry" color="D1BEF4" x="1728" y="864" />
+		<entity schema="Default" name="wagtailcore_pagerevision" color="D1BEF4" x="2432" y="608" />
+		<entity schema="Default" name="wagtailcore_pagesubscription" color="D1BEF4" x="2048" y="1232" />
+		<entity schema="Default" name="wagtailcore_pageviewrestriction" color="BEBEF4" x="3200" y="608" />
+		<entity schema="Default" name="wagtailcore_pageviewrestriction_groups" color="BEBEF4" x="3536" y="608" />
+		<entity schema="Default" name="wagtailcore_site" color="BED3F4" x="1088" y="1696" />
+		<entity schema="Default" name="wagtailcore_task" color="BED3F4" x="816" y="1696" />
+		<entity schema="Default" name="wagtailcore_taskstate" color="BED3F4" x="528" y="1696" />
+		<entity schema="Default" name="wagtailcore_workflow" color="D1BEF4" x="1072" y="2352" />
+		<entity schema="Default" name="wagtailcore_workflowpage" color="F4DDBE" x="2336" y="1488" />
+		<entity schema="Default" name="wagtailcore_workflowstate" color="F4DDBE" x="2032" y="1488" />
+		<entity schema="Default" name="wagtailcore_workflowtask" color="D1BEF4" x="1072" y="2544" />
+		<entity schema="Default" name="wagtaildocs_document" color="BED3F4" x="2288" y="2352" />
+		<entity schema="Default" name="wagtaildocs_uploadeddocument" color="BED3F4" x="2592" y="2352" />
+		<entity schema="Default" name="wagtailembeds_embed" color="BED3F4" x="1376" y="1936" />
+		<entity schema="Default" name="wagtailforms_formsubmission" color="D1BEF4" x="1744" y="1232" />
+		<entity schema="Default" name="wagtailimages_image" color="BED3F4" x="1728" y="2352" />
+		<entity schema="Default" name="wagtailimages_rendition" color="BED3F4" x="1728" y="2720" />
+		<entity schema="Default" name="wagtailimages_uploadedimage" color="BED3F4" x="2032" y="2720" />
+		<entity schema="Default" name="wagtailredirects_redirect" color="D1BEF4" x="1328" y="2352" />
+		<entity schema="Default" name="wagtailsearch_editorspick" color="F4DDBE" x="1728" y="1808" />
+		<entity schema="Default" name="wagtailsearch_indexentry" color="F4DDBE" x="2928" y="1728" />
+		<entity schema="Default" name="wagtailsearch_indexentry_fts" color="F4DDBE" x="4128" y="1888" />
+		<entity schema="Default" name="wagtailsearch_indexentry_fts_config" color="F4DDBE" x="3200" y="1728" />
+		<entity schema="Default" name="wagtailsearch_indexentry_fts_content" color="F4DDBE" x="3520" y="1728" />
+		<entity schema="Default" name="wagtailsearch_indexentry_fts_data" color="F4DDBE" x="3520" y="1888" />
+		<entity schema="Default" name="wagtailsearch_indexentry_fts_docsize" color="F4DDBE" x="3824" y="2064" />
+		<entity schema="Default" name="wagtailsearch_indexentry_fts_idx" color="F4DDBE" x="3824" y="1888" />
+		<entity schema="Default" name="wagtailsearch_query" color="F4DDBE" x="2624" y="1728" />
+		<entity schema="Default" name="wagtailsearch_querydailyhits" color="F4DDBE" x="1728" y="2032" />
+		<entity schema="Default" name="wagtailusers_userprofile" color="BEBEF4" x="3120" y="1200" />
+		<script name="SQL Editor" id="Editor-c21" language="SQL" >
+			<string><![CDATA[SELECT id, path, depth, numchild, title, slug, live, has_unpublished_changes, url_path, seo_title, show_in_menus, search_description, 
+	go_live_at, expire_at, expired, content_type_id, owner_id, locked, latest_revision_created_at, first_published_at, live_revision_id, 
+	last_published_at, draft_title, locked_at, locked_by_id, translation_key, locale_id, alias_of_id
+FROM
+	wagtailcore_page e;]]></string>
+		</script>
+		<browser id="Browse-124" name="Relational Data Explorer" confirm_updates="y" >
+			<browse_table schema="Default" entity="wagtailcore_page" x="20" y="20" width="400" height="300" >
+				<browse_table schema="Default" entity="blog_blogindexpage" fk="Fk" x="440" y="20" width="500" height="350" />
+			</browse_table>
+		</browser>
+		<query id="Query-637" name="Query Builder" >
+			<query_table schema="Default" name="wagtailcore_page" alias="wp" x="48" y="48" >
+				<column name="id" />
+				<column name="path" />
+				<column name="depth" />
+				<column name="numchild" />
+				<column name="title" />
+				<column name="slug" />
+				<column name="live" />
+				<column name="has_unpublished_changes" />
+				<column name="url_path" />
+				<column name="seo_title" />
+				<column name="show_in_menus" />
+				<column name="search_description" />
+				<column name="go_live_at" />
+				<column name="expire_at" />
+				<column name="expired" />
+				<column name="content_type_id" />
+				<column name="owner_id" />
+				<column name="locked" />
+				<column name="latest_revision_created_at" />
+				<column name="first_published_at" />
+				<column name="live_revision_id" />
+				<column name="last_published_at" />
+				<column name="draft_title" />
+				<column name="locked_at" />
+				<column name="locked_by_id" />
+				<column name="translation_key" />
+				<column name="locale_id" />
+				<column name="alias_of_id" />
+				<query_table schema="Default" name="blog_blogindexpage" alias="bb" x="304" y="48" fk="Fk" type="Inner Join" >
+					<column name="page_ptr_id" />
+					<column name="introduction" />
+				</query_table>
+			</query_table>
+		</query>
+		<form name="Report" id="Report-cf4" template="Page" css="container-fluid" view="frame" >
+			<var name="samplePageNumber" type="4" value="0" mandatory="n" />
+			<var name="sampleRecordsPerPage" type="4" value="100" mandatory="n" />
+			<body name="Body" template="Grid" pos="0,0,0,0,f,f" layout="{{-2,-2,-2,-2,-1},{-2,-2,-2,-2}}" scroll="n" html="n" >
+				<cell type="label" name="Wagtailcore_page Data" template="H3" pos="0,0,1,0,l,c" />
+				<cell type="chart" name="Pie" template="Pie" pos="0,1,4,1,l,c" max_records="20" >
+					<form_script type="DataSource" language="SQL" >
+						<var name="id" type="4" />
+						<var name="path" />
+						<var name="depth" type="4" />
+						<var name="numchild" type="4" />
+						<var name="title" />
+						<var name="slug" />
+						<var name="live" type="-7" />
+						<var name="has_unpublished_changes" type="-7" />
+						<var name="url_path" type="-1" />
+						<var name="seo_title" />
+						<var name="show_in_menus" type="-7" />
+						<var name="search_description" type="-1" />
+						<var name="go_live_at" type="93" />
+						<var name="expire_at" type="93" />
+						<var name="expired" type="-7" />
+						<var name="content_type_id" type="4" />
+						<var name="owner_id" type="4" />
+						<var name="locked" type="-7" />
+						<var name="latest_revision_created_at" type="93" />
+						<var name="first_published_at" type="93" />
+						<var name="live_revision_id" type="4" />
+						<var name="last_published_at" type="93" />
+						<var name="draft_title" />
+						<var name="locked_at" type="93" />
+						<var name="locked_by_id" type="4" />
+						<var name="translation_key" type="1" />
+						<var name="locale_id" type="4" />
+						<var name="alias_of_id" type="4" />
+						<script ><![CDATA[SELECT * FROM wagtailcore_page]]></script>
+					</form_script>
+					<param name="i0" value="translation_key" />
+					<param name="width" value="100%" />
+					<param name="v0" value="locale_id" />
+					<param name="title" value="Sample Chart" />
+					<param name="height" value="400px" />
+				</cell>
+				<tableview name="sample" template="Table" css="table table-striped table-sm table-hover" pos="0,2,4,2,f,f" layout="{{-2,-2,-2,-2,-2,-2,-2},{-2,-2}}" scroll="n" html="n" header_rows="1" >
+					<form_script type="DataSource" language="SQL" >
+						<var name="id" type="4" />
+						<var name="path" />
+						<var name="depth" type="4" />
+						<var name="numchild" type="4" />
+						<var name="title" />
+						<var name="slug" />
+						<var name="live" type="-7" />
+						<var name="has_unpublished_changes" type="-7" />
+						<var name="url_path" type="-1" />
+						<var name="seo_title" />
+						<var name="show_in_menus" type="-7" />
+						<var name="search_description" type="-1" />
+						<var name="go_live_at" type="93" />
+						<var name="expire_at" type="93" />
+						<var name="expired" type="-7" />
+						<var name="content_type_id" type="4" />
+						<var name="owner_id" type="4" />
+						<var name="locked" type="-7" />
+						<var name="latest_revision_created_at" type="93" />
+						<var name="first_published_at" type="93" />
+						<var name="live_revision_id" type="4" />
+						<var name="last_published_at" type="93" />
+						<var name="draft_title" />
+						<var name="locked_at" type="93" />
+						<var name="locked_by_id" type="4" />
+						<var name="translation_key" type="1" />
+						<var name="locale_id" type="4" />
+						<var name="alias_of_id" type="4" />
+						<script ><![CDATA[SELECT * FROM wagtailcore_page]]></script>
+					</form_script>
+					<cell type="label" name="id" pos="0,0,0,0,c,c" />
+					<cell type="label" name="path" pos="1,0,1,0,c,c" />
+					<cell type="label" name="depth" pos="2,0,2,0,c,c" />
+					<cell type="label" name="numchild" pos="3,0,3,0,c,c" />
+					<cell type="label" name="title" pos="4,0,4,0,c,c" />
+					<cell type="label" name="slug" pos="5,0,5,0,c,c" />
+					<cell type="label" name="Button can open other pages." pos="6,0,6,0,c,c" />
+					<cell type="label" name="${id}" template="Plain" pos="0,1,0,1,l,c" />
+					<cell type="label" name="${path}" template="Plain" pos="1,1,1,1,l,c" />
+					<cell type="label" name="${depth}" template="Plain" pos="2,1,2,1,l,c" />
+					<cell type="label" name="${numchild}" template="Plain" pos="3,1,3,1,l,c" />
+					<cell type="label" name="${title}" template="Plain" pos="4,1,4,1,l,c" />
+					<cell type="label" name="${slug}" template="Plain" pos="5,1,5,1,l,c" />
+					<cell type="button" name="More" template="Plain" css="btn btn-default btn-success" pos="6,1,6,1,c,c" ref_id="Report-cf4" />
+				</tableview>
+				<cell type="href" name="" disabled="${samplePageNumber&lt;1}" pos="0,3,0,3,l,c" glyph="FA-ANGLE_DOUBLE_LEFT" ref_id="Report-cf4" >
+					<var name="samplePageNumber" value="0" />
+				</cell>
+				<cell type="href" name="" disabled="${samplePageNumber&lt;1}" pos="1,3,1,3,l,c" glyph="FA-ANGLE_LEFT" ref_id="Report-cf4" >
+					<var name="samplePageNumber" value="${Math.max(0,samplePageNumber-1)}" />
+				</cell>
+				<cell type="label" name="Page ${samplePageNumber+1}" pos="2,3,2,3,l,c" />
+				<cell type="href" name="" disabled="${!sampleHasNextPage}" pos="3,3,3,3,l,c" glyph="FA-ANGLE_RIGHT" ref_id="Report-cf4" >
+					<var name="samplePageNumber" value="${( samplePageNumber+1 )}" />
+				</cell>
+			</body>
+		</form>
+	</layout>
+</project>

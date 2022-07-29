@@ -4,7 +4,7 @@
 
 
 
-{%image self.image width-100 as blog_img %}
+{% image self.image fill-300x200 as blog_img %}
 
 <div class="container">
     <div>{{self.creator}}</div>
@@ -12,11 +12,12 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-4">
-            <div class="thumbnail">
-                <img src="{{ blog_img.url }}" alt="Lights" style="max-width: 100%" />
-             </div>
-        </div>
+        
+            {% block image%}
+                <div class="thumbnail">
+                    <img src="{{ blog_img.url }}" alt="Lights"/>
+                </div>
+            {% endblock image%}
     </div>
 
     <div class="row">
@@ -26,7 +27,7 @@
             <div class="row photo_avatars">
                 {% for author, comment in page.authors %}
                     <div class="col-sm-2">{% image author.image fill-50x50-c100 class="photo_avatar" %}</div>
-                    <div class="col-sm-5">{{ author.first_name }}  {{ author.last_name}}:</div>
+                    <div class="col-sm-5">{{ author.username }}:</div>
                     <div class="col-sm-4">{{ comment | richtext }}</div> 
                 {% endfor %}
             </div>
@@ -37,19 +38,22 @@
 
         <div class="col-sm-6 col-sm-offset-2">
 
-            <div>
+            <div class="row thumbnail">
                 <img src="/media/images/facebook-like-icon-20.jpeg" style="width:80px;display:inline" />
-                <span>: {{ page.likes }} </span>
+                <span class="blog-tags__pill"> {{ page.likes }} </span>
             </di>
             
             {% if page.get_tags %}
+            <div>
                 <p class="photo__tag-introduction">Find more photo posts with similar tags:</p>
-                <div class="blog-tags blog-tags--condensed">
-                    <span class="u-sr-only">Filter blog posts by tag</span>
-                    {% for tag in page.get_tags %}
-                    <a href="{{ tag.url }}" class="blog-tags__pill">{{ tag }}</a>
-                    {% endfor %}
-                </div>
+            </div>
+                
+            <div class="blog-tags blog-tags--condensed row">
+                <span class="u-sr-only">Filter blog posts by tag</span>
+                {% for tag in page.get_tags %}
+                <a href="{{ tag.url }}" class="blog-tags__pill">{{ tag }}</a>
+                {% endfor %}
+            </div>
         {% endif %}
         </div>
 

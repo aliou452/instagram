@@ -19,5 +19,9 @@ document.addEventListener('DOMContentLoaded', () => {
   mobileNavigationToggle.addEventListener('click', () => {
     toggleMobileNavigation();
   });
+});
+
+$('.carousel').carousel({
+  interval: 2000
 })
 

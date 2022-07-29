@@ -4,7 +4,6 @@
 {% block content %}
 <div class="container">
         {% for childpage in page.feed.specific.children %}
-        {{ childpage.image.url}}
             {% include "includes/card/blog_card.html" with post=childpage %}
         {% endfor %}
 </div>
