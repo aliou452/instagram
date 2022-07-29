@@ -14,14 +14,14 @@
     <div class="row">
         <div class="col-4">
             <div class="thumbnail">
-                <img src="{{ blog_img.url }}" alt="Lights" style="width: 100%" />
+                <img src="{{ blog_img.url }}" alt="Lights" style="max-width: 100%" />
              </div>
         </div>
     </div>
 
     <div class="row">
-        <div class="col-sm-4">
         
+        <div class="col-sm-4">
             {% if page.authors %}
             <div class="row photo_avatars">
                 {% for author, comment in page.authors %}
@@ -36,6 +36,12 @@
         </div>
 
         <div class="col-sm-6 col-sm-offset-2">
+
+            <div>
+                <img src="/media/images/facebook-like-icon-20.jpeg" style="width:80px;display:inline" />
+                <span>: {{ page.likes }} </span>
+            </di>
+            
             {% if page.get_tags %}
                 <p class="photo__tag-introduction">Find more photo posts with similar tags:</p>
                 <div class="blog-tags blog-tags--condensed">
