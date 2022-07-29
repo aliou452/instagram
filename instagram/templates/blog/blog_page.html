@@ -14,29 +14,31 @@
     <div class="row">
         <div class="col-4">
             <div class="thumbnail">
-                <img src="{{ blog_img.url }}" alt="Lights" style="width: 50%" />
+                <img src="{{ blog_img.url }}" alt="Lights" style="width: 100%" />
              </div>
         </div>
     </div>
 
     <div class="row">
-        <div class="col-6">
+        <div class="col-sm-4">
         
             {% if page.authors %}
             <div class="row">
                 {% for author, comment in page.authors %}
            
-                    <div class="col-2">{% image author.image fill-50x50-c100 class="blog__avatar" %}</div>
-                    <div class="col-5">{{ author.first_name }}  {{ author.last_name}}:</div>
-                    <div class="col-5">{{ comment | richtext }}</div> 
+                    <div class="col-sm-2">{% image author.image fill-50x50-c100 class="blog-photo" %}</div>
+                    <div class="col-sm-5">{{ author.first_name }}  {{ author.last_name}}:</div>
+                    <div class="col-sm-5">{{ comment | richtext }}</div> 
                 {% endfor %}
             </div>
-            {% endif %}
+            {% else %}
+            <div class="row"> No comments yet</div>
+            {% endif%}
         </div>
 
-        <div class="col-6">
+        <div class="col-sm-6 col-sm-offset-2">
             {% if page.get_tags %}
-                <p class="blog__tag-introduction">Find more blog posts with similar tags</p>
+                <p class="photo__tag-introduction">Find more blog posts with similar tags:</p>
                 <div class="blog-tags blog-tags--condensed">
                     <span class="u-sr-only">Filter blog posts by tag</span>
                     {% for tag in page.get_tags %}

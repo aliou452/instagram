@@ -1,12 +1,12 @@
 {% load navigation_tags %}
 
-<nav class="row navbar navbar-inverse">
-  <div class="container-fluid col-2">
-    <div class="navbar-header">
+<nav class=" navbar navbar-inverse">
+  <div class="container-fluid row">
+    <div class="navbar-header col-sm-2">
       <a class="navbar-brand" href="/">Instagram</a>
     </div>
 
- 
+    <div class="col-sm-4 col-sm-offset-2">
       <form class="navbar-form nav-form" action="/search" method="get">
         <div class="input-group search-input">
           <input
@@ -24,6 +24,19 @@
           </div>
         </div>
       </form>
+    </div>
 
+    <div class="col-sm-2 col-sm-offset-2">
+        <a class="nav-link d-sm-flex align-items-sm-center" href="#">
+            <img
+              src="https://mdbcdn.b-cdn.net/img/new/avatars/1.webp"
+              class="rounded-circle"
+              style="width:30px;display:inline;padding-top:15px"
+              alt="Black and White Portrait of a Man"
+              loading="lazy"
+            />
+            <strong class="d-none d-sm-block ms-1">John</strong>
+          </a>
+    </div>
   </div>
 </nav>
