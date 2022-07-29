@@ -23,12 +23,11 @@
         <div class="col-sm-4">
         
             {% if page.authors %}
-            <div class="row">
+            <div class="row photo_avatars">
                 {% for author, comment in page.authors %}
-           
-                    <div class="col-sm-2">{% image author.image fill-50x50-c100 class="blog-photo" %}</div>
+                    <div class="col-sm-2">{% image author.image fill-50x50-c100 class="photo_avatar" %}</div>
                     <div class="col-sm-5">{{ author.first_name }}  {{ author.last_name}}:</div>
-                    <div class="col-sm-5">{{ comment | richtext }}</div> 
+                    <div class="col-sm-4">{{ comment | richtext }}</div> 
                 {% endfor %}
             </div>
             {% else %}
@@ -38,7 +37,7 @@
 
         <div class="col-sm-6 col-sm-offset-2">
             {% if page.get_tags %}
-                <p class="photo__tag-introduction">Find more blog posts with similar tags:</p>
+                <p class="photo__tag-introduction">Find more photo posts with similar tags:</p>
                 <div class="blog-tags blog-tags--condensed">
                     <span class="u-sr-only">Filter blog posts by tag</span>
                     {% for tag in page.get_tags %}

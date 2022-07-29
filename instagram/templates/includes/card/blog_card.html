@@ -1,7 +1,7 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {%image post.image width-100 as image %}
-<div class="col-md-3">
+<div class="col-sm-3" style="width:300;height=300px">
     <div class="thumbnail">
         <a href="{% pageurl post %}">
         <img src="{{ image.url}}" alt="Lights" style="width:100%">

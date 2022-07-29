@@ -267,8 +267,15 @@ figure img {
 
 /*Blog page */
 
-.blog-photo{
-  width: 30px;
+.photo_avatar{
+  border-radius: 100%;
+  display: inline;
+  width: unset;
+  margin-right: 10px;
+}
+
+.photo_avatars{
+  margin-bottom: 20px;
 }
 
 .photo__tag-introduction {
